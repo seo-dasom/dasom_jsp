@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GET 으로 서블릿에 데이터 전송</title>
+</head>
+<body>
+    <h2>URL에 파라메터를 직접 작성하여 전송</h2>
+    <div>
+        <a href="./getsend1?name=hello">전송</a>
+    </div>
+    <h2>form 태그에 사용자 입력 양식을 만들어 전송</h2>
+    <form action="./getsend2" method="get">
+        <input type="password" name="pass">
+        <button type="submit">전송</button>
+    </form>
+</body>
+</html>
