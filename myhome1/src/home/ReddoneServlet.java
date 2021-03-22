@@ -1,4 +1,4 @@
-package samp;
+package home;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,27 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/home/getsend1")
-public class GetSend1Servlet extends HttpServlet {
+@WebServlet("/home/reddone")
+public class ReddoneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public GetSend1Servlet() {
+    public ReddoneServlet() {
         super();
     }
 
-	protected void doGet(HttpServletRequest request,
+	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		String name = request.getParameter("name");
-		
 		PrintWriter out = response.getWriter();
-		String html = "";
-		html += "Client : " + name;
-		html += "<br>";
-		html += "Server : 메세지를 잘 받았습니다.";
-		out.println(html);
+		out.println("리다이렉트가 완료되었습니다.");
 	}
 
 }

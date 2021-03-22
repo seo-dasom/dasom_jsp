@@ -1,4 +1,4 @@
-package samp;
+package home;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,27 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/home/getsend1")
-public class GetSend1Servlet extends HttpServlet {
+@WebServlet("/home/redirect")
+public class RedirectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public GetSend1Servlet() {
+    public RedirectServlet() {
         super();
     }
 
-	protected void doGet(HttpServletRequest request,
+	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		String name = request.getParameter("name");
-		
+		// response.sendRedirect("reddone");	// 상대경로로 적용 가능
+		response.addHeader("Refresh", "3,url=reddone");
 		PrintWriter out = response.getWriter();
-		String html = "";
-		html += "Client : " + name;
-		html += "<br>";
-		html += "Server : 메세지를 잘 받았습니다.";
-		out.println(html);
+		out.println("3초 뒤에 다른페이지로 이동합니다.");
 	}
 
 }

@@ -20,7 +20,6 @@ public class RandomServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// 응답 인코딩 설정
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
@@ -32,20 +31,7 @@ public class RandomServlet extends HttpServlet {
 		
 		int rand = (new Random()).nextInt(max - min + 1) + min;
 		
-		PrintWriter out = response.getWriter();
-		String html = "";
-		html += "<!DOCTYPE html>";
-		html += "<html>";
-		html += "<head>";
-		html += "<meta charset=\"UTF-8\">";
-		html += "<title>랜덤</title>";
-		html += "</head>";
-		html += "<body>";
-		html += "    <h1>" + min + "~" + max + " 범위의 임의의 값을 출력하는 서블릿</h1>";
-		html += "    <h2>임의값 : " + rand + "</h2>";
-		html += "</body>";
-		html += "</html>";
-		out.println(html);
+		response.sendRedirect("random/res?mn="+min+"&mx="+max+"&rn="+rand);
     }
     
 //	protected void service(HttpServletRequest request,

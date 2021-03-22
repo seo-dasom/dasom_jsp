@@ -3,6 +3,7 @@ package home;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ public class BMIServlet extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -36,25 +37,13 @@ public class BMIServlet extends HttpServlet {
 		} else {
 			bmi_type = "비만";
 		}
+		request.setAttribute("tall", tall);
+		request.setAttribute("weight", weight);
+		request.setAttribute("bmi", bmi);
+		request.setAttribute("bmi_type", bmi_type);
 		
-		PrintWriter out = response.getWriter();
-		String html = "";
-		html += "<!DOCTYPE html>";
-		html += "<html>";
-		html += "<head>";
-		html += "<meta charset=\"UTF-8\">";
-		html += "<title>BMI 계산기</title>";
-		html += "</head>";
-		html += "<body>";
-		html += "	<h1>BMI 계산기</h1>";
-		html += "	<p>계산 결과</p>";
-		html += "	<p>키 : " + tall + "</p>";
-		html += "	<p>체중 : " + weight + "</p>";
-		html += "	<p>BMI : " + bmi + "</p>";
-		html += "	<p>구분 : " + bmi_type + "</p>";
-		html += "</body>";
-		html += "</html>";
-		out.println(html);
+		RequestDispatcher dp = request.getRequestDispatcher("res/view");
+		dp.forward(request, response);
 	}
 
 }
