@@ -42,9 +42,9 @@ public class PizzaServlet extends HttpServlet {
 		topping_map.put("cheeseB", new HashMap<String, String>() {{ put("name", "치즈바이트"); put("price", "3000"); }});
 		
 		HashMap<String, HashMap<String, String>> side_map = new HashMap();
-		side_map.put("ovenchicken", new HashMap<String, String>() {{ put("name", "오픈구이통닭"); put("price", "9000"); }});
+		side_map.put("ovenchicken", new HashMap<String, String>() {{ put("name", "오븐구이통닭"); put("price", "9000"); }});
 		side_map.put("chickenwing", new HashMap<String, String>() {{ put("name", "치킨스틱&윙"); put("price", "4900"); }});
-		side_map.put("cheesespa", new HashMap<String, String>() {{ put("name", "치즈오픈스파게티"); put("price", "4000"); }});
+		side_map.put("cheesespa", new HashMap<String, String>() {{ put("name", "치즈오븐스파게티"); put("price", "4000"); }});
 		side_map.put("shrimpwedge", new HashMap<String, String>() {{ put("name", "새우링&웨지감자"); put("price", "3500"); }});
 		side_map.put("garlicpotato", new HashMap<String, String>() {{ put("name", "갈릭포테이토"); put("price", "3000"); }});
 		side_map.put("coke", new HashMap<String, String>() {{ put("name", "콜라"); put("price", "1500"); }});
@@ -53,7 +53,7 @@ public class PizzaServlet extends HttpServlet {
 		side_map.put("pickle", new HashMap<String, String>() {{ put("name", "피클"); put("price", "300"); }});
 		side_map.put("hotsauce", new HashMap<String, String>() {{ put("name", "핫소스"); put("price", "100"); }});
 		side_map.put("parmesan", new HashMap<String, String>() {{ put("name", "파마산치즈가루"); put("price", "100"); }});
-
+		
 		int total = Integer.parseInt(pizza_map.get(pizza).get("price"));
 		pizza = pizza_map.get(pizza).get("name");
 		int i = 0;

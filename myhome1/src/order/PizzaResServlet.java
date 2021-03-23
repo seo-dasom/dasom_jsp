@@ -52,7 +52,6 @@ public class PizzaResServlet extends HttpServlet {
 		html += "</body>";
 		html += "</html>";
 		out.println(html);
-		
 	}
 
 }
