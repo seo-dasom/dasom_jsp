@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>피자주문</title>
+</head>
+<script type="text/javascript">
+function init() {
+    let date = new Date();
+    for(e of document.getElementsByName("today")) {
+        e.innerText = date.getFullYear() + "년";
+        e.innerText += " " + (date.getMonth() + 1) + "월";
+        e.innerText += " " + date.getDate() + "일";
+        e.innerText += " " + function() {
+            let day = ["일", "월", "화", "수", "목", "금", "토"]
+            return (day[date.getDay()]) + "요일";
+        }();
+    }
+}
+</script>
+<style>
+span[name="today"] {
+    color: #FFC5C5;
+}
+table, tr, th, td {
+	border-collapse: collapse;
+}
+</style>
+<body onload="init();">
+    <h1>오늘은 <span name="today"></span>입니다.</h1>
+    <h1>피자 아카데미</h1>
+    <table border="1">
+        <tr>
+            <th>종류</th>
+            <th>이름</th>
+            <th>가격</th>
+            <th rowspan="12" style="width: 24px;"></th>
+            <th>종류</th>
+            <th>이름</th>
+            <th>가격</th>
+        </tr>
+        <tr>
+            <td rowspan="5">피자</td>
+            <td>치즈피자</td>
+            <td>5000</td>
+            <td rowspan="11">사이드</td>
+            <td>오븐구이통닭</td>
+            <td>9000</td>
+        </tr>
+        <tr>
+            <td>콤비네이션피자</td>
+            <td>6000</td>
+            <td>치킨스틱&윙</td>
+            <td>4900</td>
+        </tr>
+        <tr>
+            <td>포테이토피자</td>
+            <td>7000</td>
+            <td>치즈오븐스파게티</td>
+            <td>4000</td>
+        </tr>
+        <tr>
+            <td>고구마피자</td>
+            <td>7000</td>
+            <td>새우링&웨지감자</td>
+            <td>3500</td>
+        </tr>
+        <tr>
+            <td>불고기피자</td>
+            <td>8000</td>
+            <td>갈릭포테이토</td>
+            <td>3000</td>
+        </tr>
+        <tr>
+            <td rowspan="6">토핑</td>
+            <td>고구마무스</td>
+            <td>1000</td>
+            <td>콜라</td>
+            <td>1500</td>
+        </tr>
+        <tr>
+            <td>콘크림무스</td>
+            <td>1500</td>
+            <td>사이다</td>
+            <td>1500</td>
+        </tr>
+        <tr>
+            <td>파인애플토핑</td>
+            <td>2000</td>
+            <td>갈릭소스</td>
+            <td>500</td>
+        </tr>
+        <tr>
+            <td>치즈토핑</td>
+            <td>2000</td>
+            <td>피클</td>
+            <td>300</td>
+        </tr>
+        <tr>
+            <td>치즈크러스트</td>
+            <td>2000</td>
+            <td>핫소스</td>
+            <td>100</td>
+        </tr>
+        <tr>
+            <td>치즈바이트</td>
+            <td>3000</td>
+            <td>파마산 치즈가루</td>
+            <td>100</td>
+        </tr>
+    </table>
+    <form action="../pizza" method="post">
+        <div>
+            <label for="id_pizza">피자 : </label>
+            <select name="pizza" id="id_pizza">
+                <option value="cheese">치즈피자</option>
+                <option value="combination">콤비네이션피자</option>
+                <option value="potato">포테이토피자</option>
+                <option value="goguma">고구마피자</option>
+                <option value="bulgogi">불고기피자</option>
+            </select>
+        </div>
+        <div>
+            <label>토핑 : </label>
+            <input type="checkbox" name="topping" id="goguma">고구마무스
+            <input type="checkbox" name="topping" id="corncream">콘크림무스
+            <input type="checkbox" name="topping" id="pineapple">파인애플토핑
+            <input type="checkbox" name="topping" id="cheeseT">치즈토핑
+            <input type="checkbox" name="topping" id="cheeseC">치즈크러스트
+            <input type="checkbox" name="topping" id="cheeseB">치즈바이트
+        </div>
+        <div>
+            <label>사이드 : </label>
+            <input type="checkbox" name="side" id="ovenchicken">오븐구이통닭
+            <input type="checkbox" name="side" id="chickenwing">치킨스틱&윙
+            <input type="checkbox" name="side" id="cheesespa">치즈오븐스파게티
+            <input type="checkbox" name="side" id="shrimpwedge">새우링&웨지감자
+            <input type="checkbox" name="side" id="garlicpotato">갈릭포테이토
+            <input type="checkbox" name="side" id="coke">콜라
+            <input type="checkbox" name="side" id="cider">사이다
+            <input type="checkbox" name="side" id="garlicsauce">갈릭소스
+            <input type="checkbox" name="side" id="pickle">피클
+            <input type="checkbox" name="side" id="hotsauce">핫소스
+            <input type="checkbox" name="side" id="parmesan">파마산 치즈가루
+        </div>
+        <div>
+            <button type="submit">확인</button>
+        </div>
+    </form>
+</body>
+</html>
