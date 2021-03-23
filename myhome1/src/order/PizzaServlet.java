@@ -1,9 +1,11 @@
 package order;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,7 +53,7 @@ public class PizzaServlet extends HttpServlet {
 		side_map.put("pickle", new HashMap<String, String>() {{ put("name", "피클"); put("price", "300"); }});
 		side_map.put("hotsauce", new HashMap<String, String>() {{ put("name", "핫소스"); put("price", "100"); }});
 		side_map.put("parmesan", new HashMap<String, String>() {{ put("name", "파마산치즈가루"); put("price", "100"); }});
-		
+
 		int total = Integer.parseInt(pizza_map.get(pizza).get("price"));
 		pizza = pizza_map.get(pizza).get("name");
 		int i = 0;
@@ -71,7 +73,8 @@ public class PizzaServlet extends HttpServlet {
 		request.setAttribute("pizza", pizza);
 		request.setAttribute("topping", topping);
 		request.setAttribute("side", side);
-		RequestDispatcher dp = request.getRequestDispatcher("pizza/res");
+		// RequestDispatcher dp = request.getRequestDispatcher("pizza/res");
+		RequestDispatcher dp = request.getRequestDispatcher("res.jsp");
 		dp.forward(request, response);
 	}
 
