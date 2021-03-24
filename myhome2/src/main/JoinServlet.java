@@ -1,7 +1,6 @@
 package main;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,32 +9,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// @WebServlet("/gugudan")
-public class GuguServlet extends HttpServlet {
+@WebServlet("/join")
+public class JoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public GuguServlet() {
+    public JoinServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dp = request.getRequestDispatcher("/WEB-INF/gugu.jsp");
+		RequestDispatcher dp = request.getRequestDispatcher("/WEB-INF/join.jsp");
 		dp.forward(request, response);
 	}
-	
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String userid = request.getParameter("userid");
+		String pass1 = request.getParameter("pass1");
+		String pass2 = request.getParameter("pass2");
+		String email = request.getParameter("email");
 		
-		int dan_num = Integer.parseInt(request.getParameter("dan_num"));
+		// 패스워드 검사 및 아이디 중복 검사 로직 구현
+		// 이메일 주소 형식 검사 구현
 		
-		ArrayList<String> gugu_res = new ArrayList<String>();
-		for(int i = 1; i <= 9; i++) {
-			gugu_res.add(dan_num + " x " + i + " = " + (i * dan_num));
-		}
-		
-		request.setAttribute("gugu_res", gugu_res);
-		RequestDispatcher dp = request.getRequestDispatcher("/WEB-INF/gugures.jsp");
+		RequestDispatcher dp = request.getRequestDispatcher("/WEB-INF/joinres.jsp");
 		dp.forward(request, response);
 	}
 

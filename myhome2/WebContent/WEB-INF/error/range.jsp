@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인페이지</title>
+<title>범위 설정 에러</title>
 </head>
 <body>
-	<h1>환영합니다.</h1>
-	<ul>
-        <li><a href="./gugudan">구구단</a></li>
-        <li><a href="./random">랜덤</a></li>
-	</ul>
+	<h1>범위 설정 에러</h1>
+	<p>
+		<%-- <%=request.getAttribute("message") %> --%>
+		범위 설정이 잘못되었습니다.
+	</p>
 </body>
 </html>
