@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>랜덤 범위 설정</h1>
-	<form action="./random/res" method="post">
+	<form action="./random" method="post">
 		<input type="number" name="min" value="0" placeholder="최소값" required> ~
 		<input type="number" name="max" value="9" placeholder="최대값" required>
 		<button type="submit">생성</button>
