@@ -5,9 +5,32 @@ import java.sql.*;
 // DAO(Data Access Object)
 //     데이터 베이스 접속과 관련된 메서드를 정의
 public class MemberDAO {
+	private Connection conn = null;
+	private Statement stat = null;
 	
 	public MemberDAO() {
 		this.connect();
+	}
+	
+	public MemberVO getRecord(String userid) {
+		// SQL 질의문 작성
+		String sql = "SELECT * FROM member_t WHERE userid = '" + userid + "'";
+		MemberVO m = null;
+		try {
+			// SQL 질의문 실행
+			ResultSet res = this.stat.executeQuery(sql);
+			res.next();
+			m = new MemberVO(
+				res.getString("userid"), res.getString("password"),
+				res.getString("email"), res.getDate("joindate")
+			);
+			
+			res.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return m;
 	}
 	
 	private void connect() {
@@ -22,34 +45,24 @@ public class MemberDAO {
 			String password = "admin";
 			
 			// DB 접속 객체 생성, 접속 시도
-			Connection conn = DriverManager.getConnection(url, user, password);
+			this.conn = DriverManager.getConnection(url, user, password);
 			System.out.println("Oracle DB 접속 완료!");
 			
-			// SQL 질의문 작성
-			String sql = "SELECT * FROM member_t";
-			
 			// SQL 구문 작업용 객체 생성
-			Statement stat = conn.createStatement();
-			
-			// SQL 질의문 실행
-			ResultSet res = stat.executeQuery(sql);
-			while(res.next()) {
-				MemberVO m = new MemberVO(
-					res.getString("userid"),
-					res.getString("password"),
-					res.getString("email"),
-					res.getDate("joindate")
-				);
-			}
-			System.out.println("SQL 질의문 실행 완료!");
-			
-			// 모든 커넥션 정보 close()
-			res.close();
-			stat.close();
-			conn.close();
+			this.stat = this.conn.createStatement();
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void close() {
+		// 모든 JDBC 생성 객체 정보 close()
+		try {
+			this.stat.close();
+			this.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

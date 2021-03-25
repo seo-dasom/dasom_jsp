@@ -20,6 +20,13 @@ public class MemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		MemberDAO member = new MemberDAO();
+		MemberVO m = member.getRecord(request.getParameter("name"));
+		member.close();
+		
+		System.out.println(m.getUserid());
+		System.out.println(m.getPassword());
+		System.out.println(m.getEmail());
+		System.out.println(m.getJoindate());
 	}
 
 	protected void doPost(HttpServletRequest request,
