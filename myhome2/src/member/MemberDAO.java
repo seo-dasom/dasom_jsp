@@ -28,7 +28,7 @@ public class MemberDAO {
 			
 			res.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("MemberDAO.java -> getRecord() : " + e.getMessage());
 		}
 		
 		return m;
@@ -53,9 +53,11 @@ public class MemberDAO {
 			this.stat = this.conn.createStatement();
 			
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("MemberDAO.java -> connect() : " + e.getMessage());
+		} catch (SQLRecoverableException e) {
+			System.out.println("MemberDAO.java -> connect() : " + e.getMessage()); // 접속 IP/Port 오류
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("MemberDAO.java -> connect() : " + e.getMessage());
 		}
 	}
 	

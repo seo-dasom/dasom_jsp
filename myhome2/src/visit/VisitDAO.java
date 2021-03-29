@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class VisitDAO {
 	private Connection conn = null;
-	private Statement stat = null;
 	private PreparedStatement pstat = null;
 	
 	public VisitDAO() {
@@ -27,9 +26,6 @@ public class VisitDAO {
 			this.conn = DriverManager.getConnection(url, user, password);
 			System.out.println("Oracle DB 접속 완료!");
 			
-			// SQL 구문 작업용 객체 생성
-			this.stat = this.conn.createStatement();
-			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -44,7 +40,7 @@ public class VisitDAO {
 			pstat = this.conn.prepareStatement(sql);
 			pstat.setInt(1, id);
 			
-			ResultSet res = this.pstat.executeQuery(sql);
+			ResultSet res = this.pstat.executeQuery();
 			if(res.next()) {
 				record = new VisitVO(
 					res.getInt("id"), res.getString("author"),
@@ -61,12 +57,14 @@ public class VisitDAO {
 	public ArrayList<VisitVO> getRecords(Date date) {
 		String sql = "";
 		sql += "SELECT * FROM visit_t";
-		sql += " WHERE TO_CHAR(create_date, 'YYYY-MM-DD') = '" + date + "'";
+		sql += " WHERE TO_CHAR(create_date, 'YYYY-MM-DD') = ?";
 		sql += " ORDER BY id DESC";
 		
 		ArrayList<VisitVO> records = new ArrayList<VisitVO>();
 		try {
-			ResultSet res = this.stat.executeQuery(sql);
+			pstat = this.conn.prepareStatement(sql);
+			pstat.setDate(1, date);
+			ResultSet res = this.pstat.executeQuery();
 			while(res.next()) {
 				records.add(new VisitVO(
 						res.getInt("id"), res.getString("author"),
@@ -88,7 +86,8 @@ public class VisitDAO {
 		ArrayList<VisitVO> records = new ArrayList<VisitVO>();
 		try {
 			// SQL 질의문 실행
-			ResultSet res = this.stat.executeQuery(sql);
+			pstat = this.conn.prepareStatement(sql);
+			ResultSet res = this.pstat.executeQuery();
 			while(res.next()) {
 				records.add(new VisitVO(
 						res.getInt("id"), res.getString("author"),
@@ -122,11 +121,31 @@ public class VisitDAO {
 			pstat.setString(1, data.getAuthor());
 			pstat.setString(2, data.getContext());
 			
-			result = this.stat.executeUpdate(sql);  // 저장 처리가 완료 되면 1 반환
+			result = this.pstat.executeUpdate();  // 저장 처리가 완료 되면 1 반환
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return result;
+	}
+	
+	public int updateData(VisitVO data) {
+		int result = 0;
+		String sql = "";
+		sql += "UPDATE visit_t";
+		sql += "    SET context=?";
+		sql += "      , author=?";
+		sql += " WHERE id=?";
 		
+		try {
+			pstat = this.conn.prepareStatement(sql);
+			pstat.setString(1, data.getContext());
+			pstat.setString(2, data.getAuthor());
+			pstat.setInt(3, data.getId());
+			
+			result = this.pstat.executeUpdate();  // 저장 처리가 완료 되면 1 반환
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 	
@@ -140,10 +159,13 @@ public class VisitDAO {
 		int result = 0;     // 삭제 처리 유무를 판별
 		String sql = "";
 		sql += "DELETE FROM visit_t";
-		sql += " WHERE id = " + id;
+		sql += " WHERE id = ?";
 		
 		try {
-			result = this.stat.executeUpdate(sql);    // 삭제 처리가 완료 되면 1 반환
+			pstat = this.conn.prepareStatement(sql);
+			pstat.setInt(1, id);
+			
+			result = this.pstat.executeUpdate();    // 삭제 처리가 완료 되면 1 반환
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -154,7 +176,7 @@ public class VisitDAO {
 	public void close() {
 		//모든 JDBC 관련 생성 객체 정보 close()
 		try {
-			this.stat.close();
+			this.pstat.close();
 			this.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

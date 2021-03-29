@@ -27,7 +27,7 @@
 		   for(VisitVO data: datas) { %>
 			   <tr>
 			       <td><%=data.getId() %></td>
-			       <td><%=data.getContext() %></td>
+			       <td><a href="./visit/update?id=<%=data.getId() %>"><%=data.getContext() %></a></td>
 			       <td><%=data.getAuthor() %></td>
 			       <td><%=data.getCreateDate() %></td>
 			       <td><form action="./visit/delete" method="post">
