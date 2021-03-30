@@ -17,12 +17,14 @@ public class DBConnection {
 	public DBConnection(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.connect();
 	}
 	
 	public DBConnection(String port, String username, String password) {
 		this.port = port;
 		this.username = username;
 		this.password = password;
+		this.connect();
 	}
 	
 	public DBConnection(String ip, String port, String username, String password) {
@@ -30,6 +32,7 @@ public class DBConnection {
 		this.port = port;
 		this.username = username;
 		this.password = password;
+		this.connect();
 	}
 	
 	private void connect() {

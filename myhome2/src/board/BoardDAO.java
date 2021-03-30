@@ -19,7 +19,7 @@ public class BoardDAO {
 		BoardVO record = new BoardVO();
 		
 		String sql = "";
-		sql += "SELECT * FROM" + this.table;
+		sql += "SELECT * FROM " + this.table;
 		sql += " WHERE id=?";
 		
 		try {
@@ -42,7 +42,7 @@ public class BoardDAO {
 		ArrayList<BoardVO> records = new ArrayList<BoardVO>();
 		
 		String sql = "";
-		sql += "SELECT * FROM" + this.table;
+		sql += "SELECT * FROM " + this.table;
 		sql += " ORDER BY id DESC";
 		
 		try {

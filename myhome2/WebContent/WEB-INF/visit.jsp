@@ -7,8 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>방명록</title>
+<%@ include file="/WEB-INF/module/css_js.jsp" %>
 </head>
 <body>
+	<header>
+		<%@ include file="/WEB-INF/module/top_nav.jsp" %>
+	</header>
 	<h1>방명록</h1>
 	<form action="./visit" method="post">
 		<input type="text" name="author" placeholder="작성자" required>
