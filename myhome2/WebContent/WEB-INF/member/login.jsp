@@ -8,11 +8,17 @@
 <%@ include file="/WEB-INF/module/css_js.jsp" %>
 </head>
 <body>
-	<h1>로그인</h1>
+	<%
+		String username = "";
+		if(request.getAttribute("username") != null) {
+			username = (String)request.getAttribute("username");
+		}
+	%>
 	<form action="./login" method="post">
 		<div>
 			<label for="id_username">아이디</label>
-			<input type="text" name="username" id="id_username" value="<%=(String)request.getAttribute("username") %>" required>
+			<input type="text" name="username" id="id_username"
+				value="<%=username %>" required>
 		</div>
 		<div>
 			<label for="id_password">패스워드</label>
@@ -20,7 +26,7 @@
 		</div>
 		<div>
 			<%
-				if(((String)request.getAttribute("username")).equals("")) {
+				if(username.equals("")) {
 			%>
 					<input type="checkbox" name="remember" id="id_remember">
 			<%

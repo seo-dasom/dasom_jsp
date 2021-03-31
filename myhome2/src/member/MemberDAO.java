@@ -5,11 +5,37 @@ import java.sql.*;
 // DAO(Data Access Object)
 //     데이터 베이스 접속과 관련된 메서드를 정의
 public class MemberDAO {
+	private final String table = "member_t";
 	private Connection conn = null;
 	private Statement stat = null;
+	private PreparedStatement pstat = null;
 	
 	public MemberDAO() {
 		this.connect();
+	}
+	
+	public MemberVO login(String userid, String password) {
+		MemberVO m = new MemberVO();
+		
+		String sql = "";
+		sql += "SELECT * FROM " + this.table;
+		sql += " WHERE userid = ?";
+		sql += "   AND password = ?";
+		
+		try {
+			this.pstat = this.conn.prepareStatement(sql);
+			this.pstat.setString(1, userid);
+			this.pstat.setString(2, password);
+			ResultSet res = this.pstat.executeQuery();
+			if(res.next()) {
+				m.setRecord(res);
+			}
+			res.close();
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return m;
 	}
 	
 	public MemberVO getRecord(String userid) {

@@ -11,7 +11,13 @@
 	<header>
 		<%@ include file="/WEB-INF/module/top_nav.jsp" %>
 	</header>
-	<h1>환영합니다.</h1>
+	<%
+		if(logined.equals("true")) {
+	%>
+			<h1><%=session.getAttribute("username") %>님 환영합니다.</h1>
+	<% } else { %>
+			<h1>환영합니다.</h1>
+	<% } %>
 	<ul>
         <li><a href="./gugudan">구구단</a></li>
         <li><a href="./random">랜덤</a></li>
