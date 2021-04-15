@@ -43,9 +43,9 @@ public class PizzaServlet extends HttpServlet {
 		
 		HashMap<String, HashMap<String, String>> side_map = new HashMap();
 		side_map.put("ovenchicken", new HashMap<String, String>() {{ put("name", "오븐구이통닭"); put("price", "9000"); }});
-		side_map.put("chickenwing", new HashMap<String, String>() {{ put("name", "치킨스틱&윙"); put("price", "4900"); }});
+		side_map.put("chickenwing", new HashMap<String, String>() {{ put("name", "치킨스틱＆윙"); put("price", "4900"); }});
 		side_map.put("cheesespa", new HashMap<String, String>() {{ put("name", "치즈오븐스파게티"); put("price", "4000"); }});
-		side_map.put("shrimpwedge", new HashMap<String, String>() {{ put("name", "새우링&웨지감자"); put("price", "3500"); }});
+		side_map.put("shrimpwedge", new HashMap<String, String>() {{ put("name", "새우링＆웨지감자"); put("price", "3500"); }});
 		side_map.put("garlicpotato", new HashMap<String, String>() {{ put("name", "갈릭포테이토"); put("price", "3000"); }});
 		side_map.put("coke", new HashMap<String, String>() {{ put("name", "콜라"); put("price", "1500"); }});
 		side_map.put("cider", new HashMap<String, String>() {{ put("name", "사이다"); put("price", "1500"); }});
