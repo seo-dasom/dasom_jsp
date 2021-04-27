@@ -22,12 +22,12 @@ public class TempHumViewServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// 출력할 페이지 번호      한 페이지에 풀력할 목록 수량
-		int page = 1;         int list_cnt = 20;
+		// 출력할 페이지 번호      한 페이지에 출력할 목록 수량
+		int page = 1;         int list_cnt = 10;
 		//  시작 페이지 번호      끝 페이지 번호
 		int st_page_num = 0;  int ed_page_num = 0;
 		// 화면에 노출할 페이지 번호 수량
-		int page_cnt = 10;
+		int page_cnt = 5;
 		
 		// 사용자가 요청한 페이지 번호 정보 추출
 		if(request.getParameter("page") != null) {
