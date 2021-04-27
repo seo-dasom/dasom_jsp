@@ -1,12 +1,12 @@
 package servlet.sensor.data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class TempHumVO {
 	private int id;
 	private double temp;
 	private int hum;
-	private Date sdate;
+	private Timestamp sdate;
 	
 	public int getId() {
 		return id;
@@ -31,11 +31,11 @@ public class TempHumVO {
 		this.hum = hum;
 	}
 	
-	public Date getSdate() {
+	public Timestamp getSdate() {
 		return sdate;
 	}
 	
-	public void setSdate(Date sdate) {
+	public void setSdate(Timestamp sdate) {
 		this.sdate = sdate;
 	}
 	

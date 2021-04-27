@@ -22,13 +22,16 @@ public class TempHumServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		double temp = Double.parseDouble(request.getParameter("t"));
-		int hum = Integer.parseInt(request.getParameter("h"));
+		int hum = (int)Double.parseDouble(request.getParameter("h"));
+		
+		System.out.println(temp + "/" + hum);
 		
 		// DAO 에 추출한 값을 전달.
 		TempHumDAO dao = new TempHumDAO();
 		TempHumVO data = new TempHumVO();
 		data.setTemp(temp);
 		data.setHum(hum);
+		//System.out.println(data);
 		if(dao.insertData(data)) {
 			System.out.println("저장 성공!!");
 		};
