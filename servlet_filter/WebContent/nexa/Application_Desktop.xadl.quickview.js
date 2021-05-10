@@ -7,7 +7,9 @@
             var obj = null;
             
             // global dataset
-
+            obj = new Dataset("dataset00", this);
+            obj._setContents("<ColumnInfo><Column id=\"id\" type=\"STRING\" size=\"256\"/><Column id=\"name\" type=\"STRING\" size=\"256\"/><Column id=\"age\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
             
             // global variable
 
