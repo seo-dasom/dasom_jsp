@@ -27,10 +27,11 @@
             obj.set_padding("0px 0px 0px 10px");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("Grid00","12","90","400","200",null,null,null,null,null,null,this);
+            obj = new Grid("Grid00","12","90","408","200",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("dataset00");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"번호\"/><Cell col=\"1\" text=\"이름\"/><Cell col=\"2\" text=\"나이\"/></Band><Band id=\"body\"><Cell text=\"bind:id\"/><Cell col=\"1\" text=\"bind:name\"/><Cell col=\"2\" text=\"bind:age\"/></Band></Format></Formats>");
+            obj.set_scrolltype("none");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"61\"/><Column size=\"115\"/><Column size=\"115\"/><Column size=\"115\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell/><Cell col=\"1\" text=\"번호\"/><Cell col=\"2\" text=\"이름\"/><Cell col=\"3\" text=\"나이\"/></Band><Band id=\"body\"><Cell text=\"bind:t\"/><Cell col=\"1\" text=\"bind:id\" edittype=\"none\"/><Cell col=\"2\" text=\"bind:name\" edittype=\"text\"/><Cell col=\"3\" text=\"bind:age\" edittype=\"text\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Button("Button00","352","64","60","20",null,null,null,null,null,null,this);
@@ -73,12 +74,16 @@
         
         // User Script
         this.registerScript("Form_Work.xfdl", function() {
+        var app = nexacro.getApplication();
+
         this.callbackFunc = function(id, errCd, errMsg) {
         	if(errCd < 0) {
         		console.log("Error Code : " + errCd);
         		console.log("Error Msg : " + errMsg);
+        		alert("데이터 저장에 문제가 발생하였습니다.");
         	} else {
         		console.log(errMsg);
+        		alert("데이터 저장이 완료되었습니다");
         	}
         };
 
@@ -116,6 +121,31 @@
         	)
         };
 
+        this.Button03_onclick = function(obj,e)
+        {
+        	this.transaction(
+        		"initData",
+        		"http://localhost/filter/nexa/save",
+        		"data=dataset00:U",
+        		"dataset00=serverData",
+        		"",
+        		"callbackFunc"
+        	)
+        };
+
+        this.Button01_onclick = function(obj,e)
+        {
+        	var row = app.dataset00.addRow();
+        	app.dataset00.setColumn(row, "t", "I");
+        };
+
+        this.Button02_onclick = function(obj,e)
+        {
+        	var row = app.dataset00.rowposition;
+        	// app.dataset00.deleteRow(row);
+        	app.dataset00.setColumn(row, "t", "D");
+        };
+
         });
         
         // Regist UI Components Event
@@ -125,6 +155,9 @@
             this.Static00.addEventHandler("onclick",this.Static00_onclick,this);
             this.Button00.addEventHandler("onclick",this.Button00_onclick,this);
             this.Edit00.addEventHandler("onchanged",this.Edit00_onchanged,this);
+            this.Button01.addEventHandler("onclick",this.Button01_onclick,this);
+            this.Button02.addEventHandler("onclick",this.Button02_onclick,this);
+            this.Button03.addEventHandler("onclick",this.Button03_onclick,this);
         };
 
         this.loadIncludeScript("Form_Work.xfdl");

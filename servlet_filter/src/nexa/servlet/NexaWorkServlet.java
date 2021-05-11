@@ -1,6 +1,7 @@
 package nexa.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,33 +44,25 @@ public class NexaWorkServlet extends HttpServlet {
 		}
 		PlatformData req_data = req.getData();
 		String data = req_data.getVariable("data").getString();
-		System.out.println("클라이언트가 전송한 데이터: " + data);
 		
 		PlatformData pdata = new PlatformData();
 		
 		DataSet ds = new DataSet("serverData");
+		ds.addColumn("t", DataTypes.STRING, 1);
 		ds.addColumn("id", DataTypes.STRING, 256);
 		ds.addColumn("name", DataTypes.STRING, 256);
 		ds.addColumn("age", DataTypes.STRING, 256);
 		
+		NexaTestDAO dao = new NexaTestDAO();
+		ArrayList<NexaTestVO> datas = (ArrayList)dao.selectAll();
+		
 		int row;
-		if(data.equals("홍길동") || data.equals("") || data.equals("undefined")) {
+		for(NexaTestVO d: datas) {
 			row = ds.newRow();
-			ds.set(row, "id", "1");
-			ds.set(row, "name", "홍길동");
-			ds.set(row, "age", "32");
-		}
-		if(data.equals("김철수") || data.equals("") || data.equals("undefined")) {
-			row = ds.newRow();
-			ds.set(row, "id", "2");
-			ds.set(row, "name", "김철수");
-			ds.set(row, "age", "31");
-		}
-		if(data.equals("박연우") || data.equals("") || data.equals("undefined")) {
-			row = ds.newRow();
-			ds.set(row, "id", "3");
-			ds.set(row, "name", "박연우");
-			ds.set(row, "age", "29");
+			ds.set(row, "t", "");
+			ds.set(row, "id", d.getId());
+			ds.set(row, "name", d.getName());
+			ds.set(row, "age", d.getAge());
 		}
 		
 		pdata.addDataSet(ds);
