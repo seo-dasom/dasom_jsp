@@ -80,7 +80,7 @@
         	if(errCd < 0) {
         		console.log("Error Code : " + errCd);
         		console.log("Error Msg : " + errMsg);
-        		alert("데이터 저장에 문제가 발생하였습니다.");
+        		alert(errMsg);
         	} else {
         		console.log(errMsg);
         		alert("데이터 저장이 완료되었습니다");
@@ -121,10 +121,30 @@
         	)
         };
 
+        this.isNull = function(row, column) {
+        	var v = app.dataset00.getColumn(row, column);
+        	return v == undefined || v == "" || v == null ? true : false;
+        }
+
         this.Button03_onclick = function(obj,e)
         {
+        	for(var i = 0; i < app.dataset00.rowcount; i++) {
+        		var type = app.dataset00.getRowType(i);
+        		if(type == 2 || type == 4) {
+        			if(this.isNull(i, "name")) {
+        				this.Grid00.setCellPos(this.Grid00.getBindCellIndex("body", "name"), i);
+        				this.Grid00.showEditor(true);
+        				return;
+        			}
+        			if(this.isNull(i, "age")) {
+        				this.Grid00.setCellPos(this.Grid00.getBindCellIndex("body", "age"), i);
+        				this.Grid00.showEditor(true);
+        				return;
+        			}
+        		}
+        	}
         	this.transaction(
-        		"initData",
+        		"saveData",
         		"http://localhost/filter/nexa/save",
         		"data=dataset00:U",
         		"dataset00=serverData",

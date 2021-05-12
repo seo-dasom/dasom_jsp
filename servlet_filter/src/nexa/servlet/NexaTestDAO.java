@@ -105,6 +105,10 @@ public class NexaTestDAO {
 		return res;
 	}
 	
+	public boolean isConnected() {
+		return this.conn == null ? false : true;
+	}
+	
 	public void close() {
 		try {
 			this.conn.close();
