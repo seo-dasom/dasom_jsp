@@ -10,7 +10,7 @@
         this.on_create = function()
         {
             this.set_name("frm_work1");
-            this.set_titletext("New Form");
+            this.set_titletext("frm_work1");
             if (Form == this.constructor)
             {
                 this._setFormPosition(1080,670);

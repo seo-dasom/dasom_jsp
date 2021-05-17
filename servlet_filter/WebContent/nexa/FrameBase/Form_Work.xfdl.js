@@ -82,8 +82,8 @@
         		console.log("Error Msg : " + errMsg);
         		alert(errMsg);
         	} else {
+        		console.log("Error Code : " + errCd);
         		console.log(errMsg);
-        		alert("데이터 저장이 완료되었습니다");
         	}
         };
 

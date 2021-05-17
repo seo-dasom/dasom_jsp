@@ -108,7 +108,7 @@
         	"form":[
         				"./FrameBase/Form_Top.xfdl.js",
         		"./FrameBase/Form_Left.xfdl.js",
-        		"./FrameBase/Form_Work.xfdl.js"
+        		"./FrameBase/Form_Main.xfdl.js"
         	]
         }
         ],  

@@ -10,6 +10,11 @@
             obj = new Dataset("dataset00", this);
             obj._setContents("<ColumnInfo><Column id=\"t\" type=\"STRING\" size=\"1\"/><Column id=\"id\" type=\"STRING\" size=\"256\"/><Column id=\"name\" type=\"STRING\" size=\"256\"/><Column id=\"age\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("dataset01", this);
+            obj._setContents("<ColumnInfo><Column id=\"id\" type=\"STRING\" size=\"256\"/><Column id=\"password\" type=\"STRING\" size=\"256\"/><Column id=\"name\" type=\"STRING\" size=\"256\"/><Column id=\"phone\" type=\"STRING\" size=\"256\"/><Column id=\"email\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
             
             // global variable
 
@@ -68,11 +73,11 @@
             frame3.set_formurl("FrameBase::Form_Left.xfdl");
 
 
-            var frame4 = new ChildFrame("WorkFrame",null,null,null,null,null,null,"FrameBase::Form_Work.xfdl",frame2);
+            var frame4 = new ChildFrame("WorkFrame",null,null,null,null,null,null,"FrameBase::Form_Main.xfdl",frame2);
             frame4.set_showtitlebar("false");
             frame4.set_showstatusbar("false");
             frame2.addChild(frame4.name, frame4);
-            frame4.set_formurl("FrameBase::Form_Work.xfdl");
+            frame4.set_formurl("FrameBase::Form_Main.xfdl");
         };
         
         this.on_initEvent = function()

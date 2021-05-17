@@ -9,27 +9,22 @@
         
         this.on_create = function()
         {
-            this.set_name("frm_work1");
-            this.set_titletext("frm_work2");
+            this.set_name("Form_Main");
+            this.set_titletext("Form_Main");
             if (Form == this.constructor)
             {
-                this._setFormPosition(1080,670);
+                this._setFormPosition(960,656);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
 
             
             // UI Components Initialize
-            obj = new Static("Static00","0","0","264","60",null,null,null,null,null,null,this);
-            obj.set_taborder("0");
-            obj.set_text("Work2 화면");
-            obj.set_font("normal 700 16pt/normal \"맑은고딕\"");
-            obj.set_padding("0px 0px 0px 10px");
-            this.addChild(obj.name, obj);
+
 
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","",1080,670,this,function(p){});
+            obj = new Layout("default","",960,656,this,function(p){});
             obj.set_mobileorientation("landscape");
             this.addLayout(obj.name, obj);
             
@@ -48,10 +43,10 @@
         // Regist UI Components Event
         this.on_initEvent = function()
         {
-            this.Static00.addEventHandler("onclick",this.Static00_onclick,this);
+
         };
 
-        this.loadIncludeScript("frm_work2.xfdl");
+        this.loadIncludeScript("Form_Main.xfdl");
         this.loadPreloadList();
         
         // Remove Reference

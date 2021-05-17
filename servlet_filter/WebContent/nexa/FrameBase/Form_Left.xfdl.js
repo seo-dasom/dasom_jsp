@@ -14,12 +14,12 @@
             this.set_scrolltype("vertical");
             if (Form == this.constructor)
             {
-                this._setFormPosition(200,670);
+                this._setFormPosition(320,656);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("Dataset00", this);
-            obj._setContents("<ColumnInfo><Column id=\"name\" type=\"STRING\" size=\"256\"/><Column id=\"depth\" type=\"STRING\" size=\"256\"/><Column id=\"url\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"name\">소개</Col><Col id=\"depth\">0</Col></Row><Row><Col id=\"name\">과정</Col><Col id=\"depth\">0</Col></Row><Row><Col id=\"name\">프로그램</Col><Col id=\"depth\">1</Col></Row><Row><Col id=\"name\">자바</Col><Col id=\"depth\">2</Col><Col id=\"url\">FrameBase::frm_work1.xfdl</Col></Row><Row><Col id=\"name\">파이썬</Col><Col id=\"depth\">2</Col><Col id=\"url\">FrameBase::frm_work2.xfdl</Col></Row><Row><Col id=\"name\">서버</Col><Col id=\"depth\">1</Col></Row><Row><Col id=\"name\">윈도우</Col><Col id=\"depth\">2</Col><Col id=\"url\">FrameBase::frm_work3.xfdl</Col></Row><Row><Col id=\"name\">리눅스</Col><Col id=\"depth\">2</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"name\" type=\"STRING\" size=\"256\"/><Column id=\"depth\" type=\"STRING\" size=\"256\"/><Column id=\"url\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"name\">KH 소개</Col><Col id=\"depth\">0</Col></Row><Row><Col id=\"name\">연혁</Col><Col id=\"depth\">1</Col></Row><Row><Col id=\"name\">오시는 길</Col><Col id=\"depth\">1</Col></Row><Row><Col id=\"name\">과정 소개</Col><Col id=\"depth\">0</Col></Row><Row><Col id=\"name\">자바 학부</Col><Col id=\"depth\">1</Col></Row><Row><Col id=\"name\">보안 학부</Col><Col id=\"depth\">1</Col><Col id=\"url\">[Undefined]</Col></Row><Row><Col id=\"name\">KH 소식</Col><Col id=\"depth\">0</Col><Col id=\"url\">FrameBase::frm_work1.xfdl</Col></Row><Row><Col id=\"name\">인재 채용</Col><Col id=\"depth\">0</Col><Col id=\"url\">FrameBase::frm_work2.xfdl</Col></Row><Row><Col id=\"name\">회원가입</Col><Col id=\"depth\">0</Col><Col id=\"url\">FrameBase::frm_join.xfdl</Col></Row></Rows>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -30,7 +30,7 @@
             obj.set_font("normal bold 16pt/normal \"맑은고딕\"");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("Grid00","1","50","179","470",null,null,null,null,null,null,this);
+            obj = new Grid("Grid00","0","50","200","470",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("Dataset00");
             obj.set_autofittype("col");
@@ -40,7 +40,7 @@
 
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","Desktop_screen",200,670,this,function(p){});
+            obj = new Layout("default","Desktop_screen",320,656,this,function(p){});
             this.addLayout(obj.name, obj);
             
             // BindItem Information
