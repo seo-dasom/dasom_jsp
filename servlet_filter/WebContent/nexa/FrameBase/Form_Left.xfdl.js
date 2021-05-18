@@ -30,7 +30,7 @@
             obj.set_font("normal bold 16pt/normal \"맑은고딕\"");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("Grid00","0","50","200","470",null,null,null,null,null,null,this);
+            obj = new Grid("Grid00","0","50","319","470",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("Dataset00");
             obj.set_autofittype("col");

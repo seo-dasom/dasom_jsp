@@ -23,7 +23,7 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Menu("Menu00","200","0","1080","63",null,null,null,null,null,null,this);
+            obj = new Menu("Menu00","300","0","980","63",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_background("black");
             obj.set_innerdataset("Dataset00");
@@ -34,7 +34,7 @@
             obj.set_font("normal normal 16pt/normal \"맑은고딕\"");
             this.addChild(obj.name, obj);
 
-            obj = new ImageViewer("ImageViewer00","0","0","200","63",null,null,null,null,null,null,this);
+            obj = new ImageViewer("ImageViewer00","0","0","300","63",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_image("url(\'imagerc::top_logo.jpg\')");
             this.addChild(obj.name, obj);

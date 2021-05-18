@@ -1,4 +1,4 @@
-package action.tag;
+package el.jstl;
 
 import java.io.IOException;
 
@@ -8,38 +8,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/bean")
-public class UseBeanServlet extends HttpServlet {
+@WebServlet("/el/obj")
+public class ELObjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public UseBeanServlet() {
+    public ELObjectServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String path = "/WEB-INF/jsp/bean/usebean.jsp";
+		HttpSession session = request.getSession();
+		session.setAttribute("name", "session value");
+		
+		String path ="/WEB-INF/jsp/el_jstl/el_obj.jsp";
+		request.setAttribute("name", "value");
 		RequestDispatcher dp = request.getRequestDispatcher(path);
 		dp.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		int error = 0;
-		// 데이터 처리 작업
-		// 처리 중 문제 발생하면 -1로 설정
-		error = 0;
-		if(error == 0) {
-			String path = "/WEB-INF/jsp/bean/set.jsp";
-			RequestDispatcher dp = request.getRequestDispatcher(path);
-			dp.forward(request, response);
-		} else if(error == -1) {
-			String path = "/WEB-INF/jsp/bean/usebean.jsp";
-			RequestDispatcher dp = request.getRequestDispatcher(path);
-			dp.forward(request, response);
-		}
+
 	}
 
 }

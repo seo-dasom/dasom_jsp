@@ -51,7 +51,7 @@
         this.mainframe_createBodyFrame = function()
         {
             var frame0 = new VFrameSet("VFrameSet00",null,null,null,null,null,null,this);
-            frame0.set_separatesize("50,*");
+            frame0.set_separatesize("64,*");
             this.addChild(frame0.name, frame0);
             this.frame=frame0;
 
@@ -63,7 +63,7 @@
 
 
             var frame2 = new HFrameSet("HFrameSet00",null,null,null,null,null,null,frame0);
-            frame2.set_separatesize("200,*");
+            frame2.set_separatesize("320,*");
             frame0.addChild(frame2.name, frame2);
 
             var frame3 = new ChildFrame("LeftFrame",null,null,null,null,null,null,"FrameBase::Form_Left.xfdl",frame2);

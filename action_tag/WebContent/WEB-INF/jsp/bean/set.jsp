@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +18,8 @@
 	<jsp:setProperty name="data" property="*" />
 	
 	<h1>사용자 입력 정보를 잘 전달 받았습니다.</h1>
-	<p><jsp:getProperty property="name" name="data" /></p>
-	<p><jsp:getProperty property="age" name="data" /></p>
+	<p>${data.getName() }</p>
+	<p>${data.getAge() }</p>
 	<p><jsp:getProperty property="gender" name="data" /></p>
 	<p><jsp:getProperty property="email" name="data" /></p>
 </body>
