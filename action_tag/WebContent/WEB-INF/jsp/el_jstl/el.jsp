@@ -31,7 +31,7 @@
 		
 	</ul>
 	<h1>비교연산</h1>
-	<table border="1">
+	<table border="1" style="border-collapse: collapse;">
 		<tr>
 			<td>+</td>
 			<td>-</td>

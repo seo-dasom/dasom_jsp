@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infos>
+	<info>
+		<name>홍길동</name>
+		<age>30</age>
+		<gender>남</gender>
+	</info>
+	<info>
+		<name>김지한</name>
+		<age>32</age>
+		<gender>남</gender>
+	</info>
+	<info>
+		<name>박연우</name>
+		<age>31</age>
+		<gender>여</gender>
+	</info>
+</infos>
