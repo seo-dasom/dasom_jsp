@@ -53,9 +53,25 @@
 	}
 	
 	function send() {
-		var email_check = document.getElementById("email_check_res").innerText;
-		var nickname_check = document.getElementById("nickname_check_res").innerText;
+		var username = document.getElementById("id_username");
+		if(username.value == "" || username.value == undefined) {
+			alert("이름을 입력하세요.");
+			username.focus();
+			return;
+		}
 		
+		var nickname_check = document.getElementById("nickname_check_res").innerText;
+		if(nickname_check == "" || nickname_check == undefined) {
+			alert("닉네임을 입력하세요.")
+			document.getElementById("id_nickname").focus();
+			return;
+		} else if(nickname_check != "사용 가능!") {
+			alert("해당 닉네임으로는 가입을 할 수 없습니다.");
+			document.getElementById("id_nickname").focus();
+			return;
+		}
+		
+		var email_check = document.getElementById("email_check_res").innerText;
 		if(email_check == "" || email_check == undefined) {
 			alert("이메일 중복확인을 먼저 진행해주세요.")
 			document.getElementById("id_email").focus();
@@ -66,13 +82,17 @@
 			return;
 		}
 		
-		if(nickname_check == "" || nickname_check == undefined) {
-			alert("닉네임을 입력하세요.")
-			document.getElementById("id_nickname").focus();
+		var password = document.getElementById("id_password");
+		if(password.value == "" || password.value == undefined) {
+			alert("패스워드를 입력하세요.");
+			password.focus();
 			return;
-		} else if(nickname_check != "사용 가능!") {
-			alert("해당 닉네임으로는 가입을 할 수 없습니다.");
-			document.getElementById("id_nickname").focus();
+		}
+		
+		var age = document.getElementById("id_age");
+		if(age.value == "" || age.value == undefined) {
+			alert("나이를 입력하세요.");
+			age.focus();
 			return;
 		}
 		
@@ -104,8 +124,8 @@
 		</div>
 		<div>
 			<label>* 성별</label>
-			<input id="id_gender_m" type="radio" name="gender" checked><label for="id_gender_m"> 남</label>
-			<input id="id_gender_w" type="radio" name="gender"><label for="id_gender_w"> 여</label>
+			<input id="id_gender_m" type="radio" name="gender" value="m" checked><label for="id_gender_m"> 남</label>
+			<input id="id_gender_w" type="radio" name="gender" value="w"><label for="id_gender_w"> 여</label>
 		</div>
 		<div>
 			<label for="id_age">* 나이</label>

@@ -23,6 +23,10 @@ ALTER TABLE board_type MODIFY name CONSTRAINT board_type_name_NN NOT NULL;
 COMMENT ON COLUMN board_type.id IS '게시판 구분 식별 번호';
 COMMENT ON COLUMN board_type.name IS '게시판 종류(이름)';
 
+INSERT INTO board_type VALUES(1, '자유 게시판');
+INSERT INTO board_type VALUES(2, '유머 게시판');
+INSERT INTO board_type VALUES(3, '정치/사회 게시판');
+
 /*
  * 게시판 테이블 생성
  */
@@ -117,3 +121,7 @@ COMMENT ON COLUMN comments.bcnt IS '댓글 비추천수';
 COMMENT ON COLUMN comments.cdate IS '댓글 작성일';
 COMMENT ON COLUMN comments.udate IS '댓글 수정일';
 COMMENT ON COLUMN comments.deleted IS '댓글 삭제 구분값(실제 삭제 처리는 하지 않고 값만 y로 변경)';
+
+SELECT DBMS_LOB.SUBSTR(contents, DBMS_LOB.GETLENGTH(contents)) as contents FROM board;
+SELECT DBMS_LOB.SUBSTR(contents, 3) as contents FROM board;
+SELECT TO_CHAR(contents) as contents FROM board;
