@@ -50,6 +50,7 @@ public class BoardAddServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 세션정보를 가져와서 로그인 확인 후 값 저장.
 		HttpSession session = request.getSession();
 		if(session.getAttribute("logined") != null) {
 			if((boolean)session.getAttribute("logined")) {

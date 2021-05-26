@@ -60,7 +60,7 @@ public class AccountJoinServlet extends HttpServlet {
 			// 회원가입 완료 -> 로그인 페이지로 이동 시켜준다
 			response.sendRedirect(request.getContextPath() + "/account/login");
 		} else {
-			// 회원가입 실패
+			// 회원가입 실패 -> 다시 회원가입로 돌아간다
 			request.setAttribute("error", "회원가입 실패");
 			
 			String path = "/WEB-INF/jsp/account/join.jsp";
