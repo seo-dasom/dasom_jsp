@@ -60,6 +60,133 @@ public class BoardDAO {
 		return res;
 	}
 	
+	public void selectItem(BoardVO item) {
+		String sql = "";
+		sql += "SELECT * FROM board WHERE id = ?";
+		
+		try {
+			this.pstat = this.conn.prepareStatement(sql);
+			this.pstat.setInt(1, item.getId());
+			ResultSet rs = this.pstat.executeQuery();
+			item.setId(-1);	// 이 값이 변하지 않으면 조회된 내용이 없는 것으로 본다.
+			while(rs.next()) {
+				item.setId(rs.getInt("id"));
+				item.setBtype(rs.getInt("btype"));
+				item.setAid(rs.getInt("aid"));
+				item.setTitle(rs.getString("title"));
+				
+				// item.setContents(rs.getString("contents")); CLOB 는 이렇게 안됨
+				StringBuffer sb = new StringBuffer();
+				Reader r = rs.getCharacterStream("contents");
+				char[] buf = new char[1024];
+				int read;
+				while((read = r.read(buf, 0, 1024)) != -1) {
+					sb.append(buf, 0, read);
+				}
+				item.setContents(sb.toString());
+				r.close();
+				
+				item.setVcnt(rs.getInt("vcnt"));
+				item.setGcnt(rs.getInt("gcnt"));
+				item.setBcnt(rs.getInt("bcnt"));
+				item.setCdate(rs.getDate("cdate"));
+				item.setUdate(rs.getDate("udate"));
+				item.setNodel(rs.getString("nodel"));
+				item.setDeleted(rs.getString("deleted"));
+			}
+			rs.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public List<BoardItemVO> selectList() {
+		List<BoardItemVO> res = new ArrayList<BoardItemVO>();
+		String sql = "";
+		sql += "SELECT a.id,"
+				+ "	 a.btype,"
+				+ "	 b.name AS bname,"
+				+ "	 a.aid,"
+				+ "	 c.nickname AS aname,"
+				+ "	 a.title,"
+				+ "	 a.cdate,"
+				+ "	 a.vcnt"
+				+ "  FROM board a"
+				+ "  JOIN board_type b"
+				+ "    ON a.btype = b.id"
+				+ "  JOIN account c"
+				+ "    ON a.aid = c.id"
+				+ "  ORDER BY a.id DESC";
+		
+		try {
+			this.pstat = this.conn.prepareStatement(sql);
+			ResultSet rs = this.pstat.executeQuery();
+			while(rs.next()) {
+				BoardItemVO data = new BoardItemVO();
+				data.setId(rs.getInt("id"));
+				data.setBtype(rs.getInt("btype"));
+				data.setBname(rs.getString("bname"));
+				data.setAid(rs.getInt("aid"));
+				data.setAname(rs.getString("aname"));
+				data.setTitle(rs.getString("title"));
+				data.setCdate(rs.getDate("cdate"));
+				data.setVcnt(rs.getInt("vcnt"));
+				res.add(data);
+			}
+			rs.close();
+			this.pstat.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	public List<BoardItemVO> selectList(String type) {
+		List<BoardItemVO> res = new ArrayList<BoardItemVO>();
+		String sql = "";
+		sql += "SELECT a.id,"
+				+ "	 a.btype,"
+				+ "	 b.name AS bname,"
+				+ "	 a.aid,"
+				+ "	 c.nickname AS aname,"
+				+ "	 a.title,"
+				+ "	 a.cdate,"
+				+ "	 a.vcnt"
+				+ "  FROM board a"
+				+ "  JOIN board_type b"
+				+ "    ON a.btype = b.id"
+				+ "  JOIN account c"
+				+ "    ON a.aid = c.id"
+				+ "  WHERE a.btype = ?"
+				+ "  ORDER BY a.id DESC";
+		
+		try {
+			this.pstat = this.conn.prepareStatement(sql);
+			this.pstat.setString(1, type);
+			ResultSet rs = this.pstat.executeQuery();
+			while(rs.next()) {
+				BoardItemVO data = new BoardItemVO();
+				data.setId(rs.getInt("id"));
+				data.setBtype(rs.getInt("btype"));
+				data.setBname(rs.getString("bname"));
+				data.setAid(rs.getInt("aid"));
+				data.setAname(rs.getString("aname"));
+				data.setTitle(rs.getString("title"));
+				data.setCdate(rs.getDate("cdate"));
+				data.setVcnt(rs.getInt("vcnt"));
+				res.add(data);
+			}
+			rs.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
 	public boolean insert(BoardVO data) {
 		boolean res = false;
 		String sql = "";

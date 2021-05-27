@@ -10,6 +10,8 @@
 <body>
 	<div>
 		<ul>
+			<c:url var="all" value="/board" />
+			<li><a href="${all }">전체</a></li>
 			<c:forEach var="type" items="${requestScope.boardtypes }">
 				<li><a href="?type=${type.id }">${type.name }</a></li>
 			</c:forEach>
@@ -20,10 +22,11 @@
 			<c:url var="add" value="/board/add" />
 			<button type="button" onclick="location.href='${add }'">글쓰기</button>
 		</div>
-		<table border="1">
+		<table>
 			<thead>
 				<tr>
 					<th>번호</th>
+					<th>구분</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>작성일</th>
@@ -31,13 +34,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td><a href="">제목</a></td>
-					<td>user</td>
-					<td>2021-01-01</td>
-					<td>0</td>
-				</tr>
+				<c:url var="detail" value="/board/detail" />
+				<c:forEach var="item" items="${requestScope.boardlist }" >
+					<tr>
+						<td>${item.getId() }</td>
+						<td>${item.getBname() }</td>
+						<td><a href="${detail }?id=${item.getId() }">${item.getTitle() }</a></td>
+						<td>${item.getAname() }</td>
+						<td>${item.getCdate() }</td>
+						<td>${item.getVcnt() }</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

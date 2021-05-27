@@ -24,6 +24,10 @@ public class BoardVO {
 		this.id = id;
 	}
 	
+	public void setId(String id) {
+		this.id = Integer.parseInt(id);
+	}
+	
 	public int getBtype() {
 		return btype;
 	}
@@ -114,7 +118,6 @@ public class BoardVO {
 		} else {
 			this.nodel = "n";
 		}
-		this.nodel = nodel;
 	}
 	
 	public String getDeleted() {

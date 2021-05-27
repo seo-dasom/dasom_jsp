@@ -69,12 +69,13 @@ public class BoardAddServlet extends HttpServlet {
 				data.setBtype(btype);
 				data.setAid(((AccountVO)session.getAttribute("account")).getId());
 				data.setContents(contents);
-				data.setNodel(nodel == null ? "n" : "y");
+				data.setNodel(nodel == null ? "n" : "on");
 				
 				BoardDAO dao = new BoardDAO();
 				dao.insert(data);
 				dao.close();
 				
+				response.sendRedirect(request.getContextPath() + "/board");
 			} else {
 				response.sendRedirect(request.getContextPath() + "/account/login");
 			}

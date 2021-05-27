@@ -125,3 +125,24 @@ COMMENT ON COLUMN comments.deleted IS '댓글 삭제 구분값(실제 삭제 처
 SELECT DBMS_LOB.SUBSTR(contents, DBMS_LOB.GETLENGTH(contents)) as contents FROM board;
 SELECT DBMS_LOB.SUBSTR(contents, 3) as contents FROM board;
 SELECT TO_CHAR(contents) as contents FROM board;
+
+
+SELECT * FROM board;
+
+
+SELECT a.id,
+	a.btype,
+	b.name AS bname,
+	a.aid,
+	c.nickname AS aname,
+	a.title,
+	a.cdate,
+	a.vcnt
+  FROM board a
+  JOIN board_type b
+  	ON a.btype = b.id
+  JOIN account c
+  	ON a.aid = c.id;
+  	
+SELECT * FROM board_type;
+SELECT * FROM account;
