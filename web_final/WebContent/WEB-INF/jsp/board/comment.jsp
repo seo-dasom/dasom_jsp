@@ -9,11 +9,13 @@
 	</div>
 </form>
 <div id="comment_list">
-	<div style="border-style: solid; padding: 6px 0px;">
-		<span>작성자</span>
-		<span>댓글 내용</span>
-		<span>작성일</span>
-		<span>추천</span>
-		<span>비추천</span>
-	</div>
+	<c:forEach var="item" items="${comment_list }" >
+		<div style="border-style: solid; padding: 6px 0px;">
+			<span>${item.getAname() }</span>
+			<span>${item.getContents() }</span>
+			<span>${item.getCdate() }</span>
+			<span>${item.getGcnt() }</span>
+			<span>${item.getBcnt() }</span>
+		</div>
+	</c:forEach>
 </div>

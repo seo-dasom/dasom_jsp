@@ -128,6 +128,7 @@ SELECT TO_CHAR(contents) as contents FROM board;
 
 
 SELECT * FROM board;
+SELECT * FROM comments;
 
 
 SELECT a.id,
@@ -146,3 +147,17 @@ SELECT a.id,
   	
 SELECT * FROM board_type;
 SELECT * FROM account;
+
+SELECT a.id
+	 , a.bid
+	 , a.aid
+	 , (SELECT nickname FROM account WHERE id = a.aid) AS aname
+	 , a.contents
+	 , a.gcnt
+	 , a.bcnt
+	 , a.cdate
+	 , a.udate
+	 , a.deleted
+ FROM comments a
+WHERE bid = 6
+ORDER BY a.id DESC;

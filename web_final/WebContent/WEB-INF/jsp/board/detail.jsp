@@ -24,7 +24,7 @@
 				},
 				success: function(data) {
 					if(data.res == "success") {
-						appendComment("${(empty account) ? '' : account.getNickname() }", comment);
+						appendComment("${(empty account) ? '' : account.getNickname() }", data.comment);
 
 					} else {
 						alert("댓글 등록에 실패 했습니다.");
@@ -47,7 +47,7 @@
 		
 		item.style = "border-style: solid; padding: 6px 0px;"
 		writer.innerText = name;
-		content.innerText = comment.cotents;
+		content.innerText = comment.contents;
 		date.innerText = comment.cdate;
 		gcnt.innerText = comment.gcnt;
 		bcnt.innerText = comment.bcnt;
@@ -83,7 +83,9 @@
 		<p>${requestScope.item.getContents() }</p>
 	</div>
 	<div>
-		<jsp:include page="/WEB-INF/jsp/board/comment.jsp" flush="false" />
+		<jsp:include page="/WEB-INF/jsp/board/comment.jsp" flush="false" >
+			<jsp:param name="comment_list" value="${comment_list }" />
+		</jsp:include>
 	</div>
 </body>
 </html>
