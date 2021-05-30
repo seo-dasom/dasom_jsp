@@ -35,18 +35,18 @@ public class CommentDAO {
 	
 	public void selectItem(CommentVO item) {
 		String sql = "";
-		sql += "SELECT a.id,"
-			+  "	  a.bid,"
-			+  "	  a.aid,"
-			+  "	  (SELECT nickname FROM account WHERE id = a.aid) AS aname,"
-			+  "	  a.contents,"
-			+  "	  a.gcnt,"
-			+  "      a.bcnt,"
-			+  "	  a.cdate,"
-			+  "	  a.udate,"
-			+  "	  a.deleted"
-			+  " FROM comments a"
-			+  "WHERE bid = ?";
+		sql += "SELECT a.id"
+			+  "     , a.bid"
+			+  "     , a.aid"
+			+  "     , (SELECT nickname FROM account WHERE id = a.aid) AS aname"
+			+  "     , a.contents"
+			+  "     , a.gcnt"
+			+  "     , a.bcnt"
+			+  "     , a.cdate"
+			+  "     , a.udate"
+			+  "     , a.deleted"
+			+  "  FROM comments a"
+			+  " WHERE id = ?";
 		
 		try {
 			this.pstat = this.conn.prepareStatement(sql);
@@ -75,19 +75,19 @@ public class CommentDAO {
 	public List<CommentVO> selectList(BoardVO data) {
 		List<CommentVO> res = new ArrayList<CommentVO>();
 		String sql = "";
-		sql += "SELECT a.id,"
-			+  "	   a.bid,"
-			+  "	   a.aid,"
-			+  "	   (SELECT nickname FROM account WHERE id = a.aid) AS aname,"
-			+  "	   a.contents,"
-			+  "	   a.gcnt,"
-			+  "       a.bcnt,"
-			+  "	   a.cdate,"
-			+  "	   a.udate,"
-			+  "	   a.deleted"
-			+  " FROM comments a"
-			+  "WHERE bid = ?"
-			+  "ORDER BY a.id DESC";
+		sql += "SELECT a.id"
+			+  "     , a.bid"
+			+  "     , a.aid"
+			+  "     , (SELECT nickname FROM account WHERE id = a.aid) AS aname"
+			+  "     , a.contents"
+			+  "     , a.gcnt"
+			+  "     , a.bcnt"
+			+  "     , a.cdate"
+			+  "     , a.udate"
+			+  "     , a.deleted"
+			+  "  FROM comments a"
+			+  " WHERE bid = ?"
+			+  " ORDER BY a.id DESC";
 		
 		try {
 			this.pstat = this.conn.prepareStatement(sql);
@@ -109,7 +109,7 @@ public class CommentDAO {
 				
 				res.add(c_data);
 			}
-			rs.close();
+			//rs.close();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
