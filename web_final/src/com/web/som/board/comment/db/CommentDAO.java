@@ -109,7 +109,6 @@ public class CommentDAO {
 				
 				res.add(c_data);
 			}
-			//rs.close();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}

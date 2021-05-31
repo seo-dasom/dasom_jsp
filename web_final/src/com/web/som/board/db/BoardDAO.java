@@ -254,6 +254,61 @@ public class BoardDAO {
 		return res;
 	}
 	
+	public boolean update(BoardVO item) {
+		boolean res = false;
+		String sql = "";
+		sql += "UPDATE board"
+			+  "   SET title = ?"
+			+  "     , btype = ?"
+			+  "     , contents = ?"
+			+  "     , nodel = ?"
+			+  "     , udate = SYSDATE"
+			+  " WHERE id = ?";
+		
+		
+		try {
+			this.pstat = this.conn.prepareStatement(sql);
+			this.pstat.setString(1, item.getTitle());
+			this.pstat.setInt(2, item.getBtype());
+			this.pstat.setString(3, item.getContents());
+			this.pstat.setString(4, item.getNodel());
+			this.pstat.setInt(5, item.getId());
+			
+			int rs = this.pstat.executeUpdate();
+			if(rs == 1) {
+				res = true;
+			}
+			this.pstat.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	public boolean delete(BoardVO item) {
+		boolean res = false;
+		String sql = "";
+		sql += "DELETE FROM board WHERE id = ?";
+		
+		try {
+			this.pstat = this.conn.prepareStatement(sql);
+			this.pstat.setInt(1, item.getId());
+			
+			int rs = this.pstat.executeUpdate();
+			
+			if(rs == 1) {
+				res = true;
+			}
+			
+			this.pstat.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
 	public void close() {
 		try {
 			this.conn.close();

@@ -39,6 +39,7 @@ public class BoardDetailServlet extends HttpServlet {
 			ArrayList<CommentVO> comment_list = (ArrayList)c_dao.selectList(item);
 			c_dao.close();
 			
+			request.setAttribute("newline", "\n");
 			request.setAttribute("item", item);
 			request.setAttribute("comment_list", comment_list);
 			

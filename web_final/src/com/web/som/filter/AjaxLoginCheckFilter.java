@@ -1,6 +1,8 @@
 package com.web.som.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,24 +14,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(
-	urlPatterns = {
-		"/board/add", "/board/update",
-		"/ajax/comment/add"
-	}
-)
-public class LoginCheckFilter implements Filter {
+import org.json.simple.JSONObject;
 
-    public LoginCheckFilter() {}
+@WebFilter(
+	urlPatterns = {"/ajax/board/*"}
+)
+public class AjaxLoginCheckFilter implements Filter {
+
+    public AjaxLoginCheckFilter() {}
 
 	public void destroy() {}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// session 정보 중 login과 관련한 세션 정보 값이 존재하는지 확인하여 login 검사
+		response.setContentType("application/json; charset=utf-8");
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
+		
+		PrintWriter out = response.getWriter();
+		JSONObject json = new JSONObject();
+		json.put("res", "no_login");
+		json.put("redirect",
+				((HttpServletRequest)request).getContextPath() + "/account/login");
 		
 		if(session.getAttribute("logined") != null) {
 			if((boolean)session.getAttribute("logined")) {
@@ -37,15 +45,14 @@ public class LoginCheckFilter implements Filter {
 					chain.doFilter(request, response);
 				} else {
 					session.invalidate();
-					resp.sendRedirect(req.getContextPath() + "/account/login");
+					out.println(json.toJSONString());
 				}
 			} else {
-				resp.sendRedirect(req.getContextPath() + "/account/login");
+				out.println(json.toJSONString());
 			}
 		} else {
-			resp.sendRedirect(req.getContextPath() + "/account/login");
+			out.println(json.toJSONString());
 		}
-		
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

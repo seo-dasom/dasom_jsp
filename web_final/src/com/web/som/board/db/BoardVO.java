@@ -113,7 +113,9 @@ public class BoardVO {
 	}
 	
 	public void setNodel(String nodel) {
-		if(nodel.equals("on")) {
+		if(nodel == null) {
+			this.nodel = "n";
+		} else if(nodel.equals("on") || nodel.equals("y")) {
 			this.nodel = "y";
 		} else {
 			this.nodel = "n";
