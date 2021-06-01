@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.web.som.account.db.AccountDAO;
+import com.web.som.account.db.AccountMybatis;
 
 @WebServlet("/ajax/checker/nickname")
 public class NicknameCheckerServlet extends HttpServlet {
@@ -24,8 +25,12 @@ public class NicknameCheckerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String nickname = request.getParameter("nickname");
-		AccountDAO dao = new AccountDAO();
-		boolean res = dao.usedEmail(nickname);
+		
+//		AccountDAO dao = new AccountDAO();
+//		boolean res = dao.usedEmail(nickname);
+//		dao.close();
+		AccountMybatis dao = new AccountMybatis();
+		boolean res = dao.usedNickname(nickname);
 		dao.close();
 		
 		response.setContentType("application/json; charset=utf-8");

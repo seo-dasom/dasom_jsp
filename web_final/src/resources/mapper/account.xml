@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="accountMapper">
+  <resultMap id="accountMap" type="account">
+    <id property="id" column="id" />
+    <result property="nickname" column="nick" />
+    <result property="username" column="name" />
+  </resultMap>
+
+  <select id="selectAccount" parameterType="account" resultType="account">
+    SELECT * FROM account WHERE id = #{id}
+  </select>
+  
+  <select id="selectAccountMap" parameterType="account" resultMap="accountMap">
+    SELECT nickname AS nick, username AS name FROM account WHERE id = #{id}
+  </select>
+  
+  <select id="checkNickname" parameterType="string" resultType="_int">
+    SELECT count(*) FROM account WHERE nickname = #{nickname}
+  </select>
+  
+  <select id="checkEmail" parameterType="string" resultType="_int">
+    SELECT count(*) FROM account WHERE email = #{email}
+  </select>
+  
+  <select id="checkLogin" parameterType="account" resultType="account">
+    SELECT * FROM account WHERE email = #{email} AND password = #{password}
+  </select>
+</mapper>

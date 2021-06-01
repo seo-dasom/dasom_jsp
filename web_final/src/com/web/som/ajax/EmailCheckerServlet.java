@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.web.som.account.db.AccountDAO;
+import com.web.som.account.db.AccountMybatis;
 
 @WebServlet("/ajax/checker/email")
 public class EmailCheckerServlet extends HttpServlet {
@@ -24,7 +25,11 @@ public class EmailCheckerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
-		AccountDAO dao = new AccountDAO();
+		
+//		AccountDAO dao = new AccountDAO();
+//		boolean res = dao.usedEmail(email);
+//		dao.close();
+		AccountMybatis dao = new AccountMybatis();
 		boolean res = dao.usedEmail(email);
 		dao.close();
 		

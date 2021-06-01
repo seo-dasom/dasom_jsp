@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.web.som.account.db.AccountDAO;
+import com.web.som.account.db.AccountMybatis;
 import com.web.som.account.db.AccountVO;
 
 @WebServlet("/account/login")
@@ -37,7 +38,10 @@ public class AccountLoginServlet extends HttpServlet {
 		data.setEmail(email);
 		data.setPassword(password);
 		
-		AccountDAO dao = new AccountDAO();
+//		AccountDAO dao = new AccountDAO();
+//		dao.loginCheck(data);
+//		dao.close();
+		AccountMybatis dao = new AccountMybatis();
 		dao.loginCheck(data);
 		dao.close();
 		
