@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(
 	urlPatterns = {
+		"/account/info",
 		"/board/add", "/board/update",
 		"/ajax/comment/add"
 	}

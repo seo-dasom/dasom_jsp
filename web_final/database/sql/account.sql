@@ -39,3 +39,5 @@ COMMENT ON COLUMN account.age IS '사용자 나이';
 COMMENT ON COLUMN account.joindate IS '사용자 가입일';
 COMMENT ON COLUMN account.logindate IS '사용자 접속일';
 COMMENT ON COLUMN account.expiredate IS '사용자 탈퇴일';
+
+SELECT * FROM ACCOUNT;

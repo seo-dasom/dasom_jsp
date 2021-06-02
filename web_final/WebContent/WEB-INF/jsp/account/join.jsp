@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/common.js"></script>
 <c:url var="email_check" value="/ajax/checker/email" />
 <c:url var="nickname_check" value="/ajax/checker/nickname" />
 <script type="text/javascript">
@@ -29,24 +30,6 @@
 					document.getElementById("email_check_res").innerText = "사용 가능!";
 				} else {
 					document.getElementById("email_check_res").innerText = "이미 사용중인 이메일 주소";
-				}
-			}
-		});
-	}
-	
-	function nicknameCheck(value) {
-		$.ajax({
-			url: "${nickname_check }",
-			type: "get",
-			datatype: "json",
-			data: {
-				nickname: value
-			},
-			success: function(data) {
-				if(data.result == false) {
-					document.getElementById("nickname_check_res").innerText = "사용 가능!";
-				} else {
-					document.getElementById("nickname_check_res").innerText = "이미 사용중인 닉네임";
 				}
 			}
 		});
@@ -109,7 +92,7 @@
 		</div>
 		<div>
 			<label for="id_nickname">* 닉네임</label>
-			<input id="id_nickname" type="text" name="nickname" oninput="nicknameCheck(this.value);" required>
+			<input id="id_nickname" type="text" name="nickname" oninput="nicknameCheck('${nickname_check }', this.value);" required>
 			<label id="nickname_check_res"></label>
 		</div>
 		<div>

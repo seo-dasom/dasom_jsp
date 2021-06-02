@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.som.account.db.AccountDAO;
+import com.web.som.account.db.AccountMybatis;
 import com.web.som.account.db.AccountVO;
 
 @WebServlet("/account/join")
@@ -37,13 +38,6 @@ public class AccountJoinServlet extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String age = request.getParameter("age");
 		
-//		System.out.println("이름 : " + username);
-//		System.out.println("닉네임 : " + nickname);
-//		System.out.println("이메일 : " + email);
-//		System.out.println("패스워드 : " + password);
-//		System.out.println("성별 : " + gender);
-//		System.out.println("나이 : " + age);
-		
 		AccountVO data = new AccountVO();
 		data.setUsername(username);
 		data.setNickname(nickname);
@@ -52,7 +46,8 @@ public class AccountJoinServlet extends HttpServlet {
 		data.setGender(gender);
 		data.setAge(age);
 		
-		AccountDAO dao = new AccountDAO();
+//		AccountDAO dao = new AccountDAO();
+		AccountMybatis dao = new AccountMybatis();
 		boolean res = dao.join(data);
 		dao.close();
 		

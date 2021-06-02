@@ -27,6 +27,12 @@ public class AccountMybatis {
 		}
 	}
 	
+	public AccountVO select(int id) {
+		AccountVO res = this.sess.selectOne("accountMapper.selectAccount", id);
+		
+		return res;
+	}
+	
 	/** 
 	 * @param String nickname
 	 * @return boolean
@@ -72,7 +78,50 @@ public class AccountMybatis {
 		data.setExpiredate(res.getExpiredate());
 	}
 	
+	public boolean join(AccountVO data) {
+		boolean res = false;
+		
+		int rs = this.sess.insert("accountMapper.insertAccount", data);
+		if(rs == 1) {
+			res = true;
+			this.sess.commit();		// 커밋 DB에 반영된 내용 저장
+		} else {
+			this.sess.rollback();	// 롤백 DB에 반영된 내용 취소
+		}
+		
+		return res;
+	}
+	
+	public boolean update(AccountVO data) {
+		boolean res = false;
+		
+		int rs = this.sess.insert("accountMapper.updateAccount", data);
+		if(rs == 1) {
+			res = true;
+			this.sess.commit();		// 커밋 DB에 반영된 내용 저장
+		} else {
+			this.sess.rollback();	// 롤백 DB에 반영된 내용 취소
+		}
+		
+		return res;
+	}
+	
+	public boolean expire(int id) {
+		boolean res = false;
+		
+		int rs = this.sess.update("accountMapper.expireAccount", id);
+		if(rs == 1) {
+			res = true;
+			this.sess.commit();		// 커밋 DB에 반영된 내용 저장
+		} else {
+			this.sess.rollback();	// 롤백 DB에 반영된 내용 취소
+		}
+		
+		return res;
+	}
+	
 	public void close() {
 		this.sess.close();
 	}
+	
 }

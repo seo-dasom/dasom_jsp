@@ -29,4 +29,24 @@
   <select id="checkLogin" parameterType="account" resultType="account">
     SELECT * FROM account WHERE email = #{email} AND password = #{password}
   </select>
+  
+  <insert id="insertAccount" parameterType="account">
+    INSERT INTO account(id, nickname, username, password, email, gender, age)
+         VALUES(account_seq.NEXTVAL, #{nickname}, #{username}, #{password}
+               , #{email}, #{gender}, #{age})
+  </insert>
+  
+  <update id="updateAccount" parameterType="account">
+  	UPDATE account
+  	   SET nickname = #{nickname}
+  	     , gender = #{gender}
+  	     , age = #{age}
+  	 WHERE id = #{id}
+  </update>
+  
+  <update id="expireAccount">
+  	UPDATE account
+  	   SET expiredate = SYSDATE
+  	 WHERE id = #{id}
+  </update>
 </mapper>
