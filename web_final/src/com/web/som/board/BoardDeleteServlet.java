@@ -48,8 +48,13 @@ public class BoardDeleteServlet extends HttpServlet {
 				json.put("res", "success");
 				json.put("redirect", request.getContextPath() + "/board");
 			} else {
-				json.put("res", "fail");
-				json.put("redirect", false);
+				if(item.getNodel().equals("y")) {
+					json.put("res", "message");
+					json.put("message", "삭제금지입니다.");
+				} else {
+					json.put("res", "fail");
+					json.put("redirect", false);
+				}
 			}
 		} else {
 			json.put("res", "auth_fail");

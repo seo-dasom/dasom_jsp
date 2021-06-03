@@ -27,8 +27,10 @@
 					alert("권한이 없습니다.");
 				} else if(data.res == "no_login") {
 					alert("로그인을 먼저 진행하세요.");
+				} else if(data.res == "message"){
+					alert(data.message);
 				} else {
-					alert("삭제 실패...");
+					alert("삭제 실패");
 				}
 				if(data.redirect) {
 					location.href = data.redirect;
@@ -93,6 +95,28 @@
 		// 입력 텍스트 수 카운팅
 		document.getElementById("txt_len").innerText = obj.value.length;
 	}
+	
+	function sendRecommend(code) {
+		$.ajax({
+			url: "/final/ajax/board/recommend",
+			type: "post",
+			datatype: "json",
+			data: {
+				id: "${item.getId() }",
+				code: code
+			},
+			success: function(data) {
+				if(data.res == "success") {
+					if(data.code == "g") {
+						document.getElementById("good").innerText = data.count
+					} else if(data.code == "b") {
+						document.getElementById("bad").innerText = data.count
+					}
+
+				}
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -100,11 +124,13 @@
 		<h4>${requestScope.item.getTitle() }</h4>
 	</div>
 	<div>
-		<small>작성일 : ${requestScope.item.getCdate() }</small>
-		<small>수정일 : ${requestScope.item.getUdate() }</small>
-		<small>조회수 : ${requestScope.item.getVcnt() }</small>
-		<small>추천 : ${requestScope.item.getGcnt() }</small>
-		<small>비추천 : ${requestScope.item.getBcnt() }</small>
+		<small>작성일 : ${requestScope.item.getCdate() }</small><br>
+		<small>수정일 : ${requestScope.item.getUdate() }</small><br>
+		<small>조회수 : ${requestScope.item.getVcnt() }</small><br>
+		<a style="cursor: pointer;" onclick="sendRecommend('g');">
+			<small>추천 : <span id="good">${requestScope.item.getGcnt() }</span></small></a><br>
+		<a style="cursor: pointer;" onclick="sendRecommend('b');">
+			<small>비추천 : <span id="bad">${requestScope.item.getBcnt() }</span></small></a><br>
 	</div>
 	<div>
 		<p>${fn:replace(requestScope.item.getContents(), newline, "<br>") }</p>

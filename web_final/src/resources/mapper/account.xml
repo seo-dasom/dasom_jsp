@@ -27,7 +27,10 @@
   </select>
   
   <select id="checkLogin" parameterType="account" resultType="account">
-    SELECT * FROM account WHERE email = #{email} AND password = #{password}
+    SELECT * FROM account
+     WHERE email = #{email}
+     AND password = #{password}
+     AND expiredate IS NULL
   </select>
   
   <insert id="insertAccount" parameterType="account">
@@ -35,6 +38,12 @@
          VALUES(account_seq.NEXTVAL, #{nickname}, #{username}, #{password}
                , #{email}, #{gender}, #{age})
   </insert>
+  
+  <update id="loginDate">
+    UPDATE account
+       SET logindate = SYSDATE
+     WHERE id = #{id}
+  </update>
   
   <update id="updateAccount" parameterType="account">
   	UPDATE account

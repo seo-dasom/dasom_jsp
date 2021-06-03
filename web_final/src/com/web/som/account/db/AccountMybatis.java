@@ -67,15 +67,21 @@ public class AccountMybatis {
 	
 	public void loginCheck(AccountVO data) {
 		AccountVO res = this.sess.selectOne("accountMapper.checkLogin", data);
-		data.setId(res.getId());
-		data.setUsername(res.getUsername());
-		data.setNickname(res.getNickname());
-		data.setPassword("");
-		data.setGender(res.getGender());
-		data.setAge(res.getAge());
-		data.setJoindate(res.getJoindate());
-		data.setLogindate(res.getLogindate());
-		data.setExpiredate(res.getExpiredate());
+		if(res != null) {
+			this.sess.update("accountMapper.loginDate", res.getId());
+			this.sess.commit();
+			data.setId(res.getId());
+			data.setUsername(res.getUsername());
+			data.setNickname(res.getNickname());
+			data.setPassword("");
+			data.setGender(res.getGender());
+			data.setAge(res.getAge());
+			data.setJoindate(res.getJoindate());
+			data.setLogindate(res.getLogindate());
+			data.setExpiredate(res.getExpiredate());
+		} else {
+			data.setId(0);
+		}
 	}
 	
 	public boolean join(AccountVO data) {

@@ -118,7 +118,8 @@ public class BoardDAO {
 				+ "    ON a.btype = b.id"
 				+ "  JOIN account c"
 				+ "    ON a.aid = c.id"
-				+ "  ORDER BY a.id DESC";
+				+ " WHERE a.deleted = 'n'"
+				+ " ORDER BY a.id DESC";
 		
 		try {
 			this.pstat = this.conn.prepareStatement(sql);
@@ -161,6 +162,7 @@ public class BoardDAO {
 				+ "  JOIN account c"
 				+ "    ON a.aid = c.id"
 				+ "  WHERE a.btype = ?"
+				+ "    AND a.deleted = 'n'"
 				+ "  ORDER BY a.id DESC";
 		
 		try {
@@ -289,7 +291,10 @@ public class BoardDAO {
 	public boolean delete(BoardVO item) {
 		boolean res = false;
 		String sql = "";
-		sql += "DELETE FROM board WHERE id = ?";
+		sql += "UPDATE board"
+			+  "   SET deleted = 'y'"
+			+  " WHERE id = ?"
+			+  "   AND nodel = 'n'";
 		
 		try {
 			this.pstat = this.conn.prepareStatement(sql);

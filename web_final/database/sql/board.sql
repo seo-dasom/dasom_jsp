@@ -130,7 +130,10 @@ SELECT TO_CHAR(contents) as contents FROM board;
 SELECT * FROM board;
 SELECT * FROM comments;
 
-
+UPDATE board
+   SET deleted = 'y'
+ WHERE id = 6
+   AND nodel = 'n';
 SELECT a.id,
 	a.btype,
 	b.name AS bname,
