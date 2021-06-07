@@ -87,6 +87,7 @@ public class CommentDAO {
 			+  "     , a.deleted"
 			+  "  FROM comments a"
 			+  " WHERE bid = ?"
+			+  "   AND deleted = 'n'"
 			+  " ORDER BY a.id DESC";
 		
 		try {

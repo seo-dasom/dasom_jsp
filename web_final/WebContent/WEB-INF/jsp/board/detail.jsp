@@ -112,7 +112,56 @@
 					} else if(data.code == "b") {
 						document.getElementById("bad").innerText = data.count
 					}
-
+				} else if(data.res == "no_login") {
+					location.href = data.redirect;
+				} else if(data.res == "fail") {
+					alert(data.message)
+				}
+			}
+		});
+	}
+	
+	function comRecommend(obj, code, cid) {
+		$.ajax({
+			url: "/final/ajax/comment/recommend",
+			type: "post",
+			datatype: "json",
+			data: {
+				id: cid,
+				code: code
+			},
+			success: function(data) {
+				if(data.res == "success") {
+					if(data.code == "g") {
+						obj.innerText = "추천 : " + data.count
+					} else if(data.code == "b") {
+						obj.innerText = "비추천 : " + data.count
+					}
+				} else if(data.res == "no_login") {
+					location.href = data.redirect;
+				} else if(data.res == "fail") {
+					alert(data.message)
+				}
+			}
+		});
+	}
+	
+	function delComment(obj, cid) {
+		$.ajax({
+			url: "/final/ajax/comment/delete",
+			type: "post",
+			datatype: "json",
+			data: {
+				id: cid
+			},
+			success: function(data) {
+				if(data.res == "success") {
+					alert("삭제되었습니다.")
+					obj.parentNode.innerHTML = "<span>삭제된 댓글</span>"
+				} else if(data.res == "no_login") {
+					location.href = data.redirect
+				} else if(data.res == "fail") {
+					alert(data.message)
 				}
 			}
 		});
@@ -121,7 +170,7 @@
 </head>
 <body>
 	<div>
-		<h4>${requestScope.item.getTitle() }</h4>
+		<h3>${requestScope.item.getTitle() }</h3>
 	</div>
 	<div>
 		<small>작성일 : ${requestScope.item.getCdate() }</small><br>

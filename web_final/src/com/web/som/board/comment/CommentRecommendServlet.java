@@ -1,4 +1,4 @@
-package com.web.som.board;
+package com.web.som.board.comment;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,24 +13,25 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
-import com.web.som.board.db.BoardMybatis;
+import com.web.som.board.comment.db.CommentMybatis;
 
-@WebServlet("/ajax/board/recommend")
-public class BoardRecommendServlet extends HttpServlet {
+@WebServlet("/ajax/comment/recommend")
+public class CommentRecommendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public BoardRecommendServlet() {
+    public CommentRecommendServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		
 		String id = request.getParameter("id");
 		String code = request.getParameter("code");
 		int count = 0;
@@ -38,28 +39,27 @@ public class BoardRecommendServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		JSONObject json = new JSONObject();
 		
-		HashMap<String, Boolean> board_rec_map = (HashMap)session.getAttribute("boardRec");
-		if(board_rec_map == null) {
-			board_rec_map = new HashMap<String, Boolean>();
+		HashMap<String, Boolean> comment_rec_map = (HashMap)session.getAttribute("commentRec");
+		if(comment_rec_map == null) {
+			comment_rec_map = new HashMap<String, Boolean>();
 		}
 		
-		if(board_rec_map.get(id) == null) {
-			BoardMybatis dao = new BoardMybatis();
-			switch(code) {
-				case "g":
-					dao.good(Integer.parseInt(id));
-					dao.commit();
-					count = dao.goodCount(Integer.parseInt(id));
-					board_rec_map.put(id, true);
-					break;
-				case "b":
-					dao.bad(Integer.parseInt(id));
-					dao.commit();
-					count = dao.badCount(Integer.parseInt(id));
-					board_rec_map.put(id, true);
-					break;
+		if(comment_rec_map.get(id) == null) {
+			CommentMybatis dao = new CommentMybatis();
+			if(code.equals("g")) {
+				dao.good(Integer.parseInt(id));
+				dao.commit();
+				count = dao.goodCount(Integer.parseInt(id));
+				
+				comment_rec_map.put(id, true);
+			} else if(code.equals("b")) {
+				dao.bad(Integer.parseInt(id));
+				dao.commit();
+				count = dao.badCount(Integer.parseInt(id));
+				
+				comment_rec_map.put(id, true);
 			}
-			session.setAttribute("boardRec", board_rec_map);
+			session.setAttribute("commentRec", comment_rec_map);
 			dao.close();
 			
 			json.put("res", "success");

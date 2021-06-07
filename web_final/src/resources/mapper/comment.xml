@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="commentMapper">
+  <select id="goodcount" resultType="comment">
+    SELECT gcnt FROM comments
+     WHERE id = #{id}
+  </select>
+  
+  <select id="badcount" resultType="comment">
+    SELECT bcnt FROM comments
+     WHERE id = #{id}
+  </select>
+  
+  <update id="incgood">
+    UPDATE comments
+       SET gcnt = gcnt + 1
+     WHERE id = #{id}
+  </update>
+  
+  <update id="incbad">
+    UPDATE comments
+       SET bcnt = bcnt + 1
+     WHERE id = #{id}
+  </update>
+  
+  <update id="delete">
+  	UPDATE comments
+  	   SET deleted = 'y'
+  	 WHERE id = #{id}
+  </update>
+</mapper>

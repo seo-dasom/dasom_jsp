@@ -14,8 +14,11 @@
 			<span>${item.getAname() }</span>
 			<span>${item.getContents() }</span>
 			<span>${item.getCdate() }</span>
-			<span>${item.getGcnt() }</span>
-			<span>${item.getBcnt() }</span>
+			<button type="button" onclick="comRecommend(this, 'g', ${item.getId() });">추천 : ${item.getGcnt() }</button>
+			<button type="button" onclick="comRecommend(this, 'b', ${item.getId() });">비추천 : ${item.getBcnt() }</button>
+			<c:if test="${item.getAid() == account.getId() }">
+				<button type="button" onclick="delComment(this, ${item.getId() });">삭제</button>
+			</c:if>
 		</div>
 	</c:forEach>
 </div>

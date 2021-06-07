@@ -15,8 +15,7 @@ import javax.servlet.http.HttpSession;
 @WebFilter(
 	urlPatterns = {
 		"/account/info",
-		"/board/add", "/board/update",
-		"/ajax/comment/add"
+		"/board/add", "/board/update"
 	}
 )
 public class LoginCheckFilter implements Filter {

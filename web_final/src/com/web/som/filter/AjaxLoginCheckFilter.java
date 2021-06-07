@@ -17,7 +17,10 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 
 @WebFilter(
-	urlPatterns = {"/ajax/board/*"}
+	urlPatterns = {
+		"/ajax/board/*",
+		"/ajax/comment/add", "/ajax/comment/recommend"
+	}
 )
 public class AjaxLoginCheckFilter implements Filter {
 
