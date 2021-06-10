@@ -15,14 +15,22 @@
 		</a></li>
 		<li>
 			<c:url var="url1" value="/param/post1" />
-			<form action="${url1 }" method="get">
+			<form action="${url1 }" method="post">
 				<input type="text" name="name">
 				<button type="submit">POST 전송</button>
 			</form>
 		</li>
-		<li><a href="/som/param/get2?name=홍길동&number=10">
+		<li><a href="/som/param/get2?name=홍길동&number=10&age=30">
 			name=홍길동&number=10 으로 보내고 받기
 		</a></li>
+		<li>
+			<c:url var="url2" value="/param/post2" />
+			<form action="${url2 }" method="post">
+				<input type="text" name="name" placeholder="name">
+				<input type="text" name="number" placeholder="number">
+				<button type="submit">전송</button>
+			</form>
+		</li>
 	</ul>
 </body>
 </html>

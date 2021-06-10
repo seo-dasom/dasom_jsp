@@ -1,7 +1,7 @@
 package com.web.som.controller.sp3;
 
 public class ParameterVO {
-	private String name;
+	private String name = "";
 	private int number;
 	
 	public String getName() {

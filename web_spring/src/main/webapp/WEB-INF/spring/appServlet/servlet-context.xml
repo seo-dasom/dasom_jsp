@@ -26,9 +26,27 @@
 		 이름으로 등록된 클래스를 찾아서(스캔) 자동으로 Spring bean 객체로 등록해준다
 	 -->
 	<context:component-scan base-package="com.web.som" />
+	
 	<!--
 		 수동으로 Mapping 정보를 등록한다 
 	 -->
 	<beans:bean name="/hello" class="com.web.som.controller.sp1.HelloController"></beans:bean>
 	
+	<!-- 
+		데이터베이스 연결 객체를 빈(bean)에 등록한다.
+	 -->
+	 <beans:bean id="dataSource"
+	 			 class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	 	<beans:property name="driverClassName" value="oracle.jdbc.OracleDriver"></beans:property>
+	 	<beans:property name="url" value="jdbc:oracle:thin:@localhost:50000:xe"></beans:property>
+	 	<beans:property name="username" value="webfinal"></beans:property>
+	 	<beans:property name="password" value="webfinal"></beans:property>
+	 </beans:bean>
+	 
+	 <!-- 
+	 	 빈에 등록된 데이터베이스 연결 객체를 JdbcTemplate에 등록(주입: DI - Dependency Injection)한다. 
+	  -->
+	  <beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	  	<beans:property name="dataSource" ref="dataSource"></beans:property>
+	  </beans:bean>
 </beans:beans>
