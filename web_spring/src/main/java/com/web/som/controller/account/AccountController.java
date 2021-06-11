@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.web.som.dto.account.AccountDTO;
 
-@Controller
+//@Controller
 @RequestMapping(value = "/account")
 public class AccountController {
 

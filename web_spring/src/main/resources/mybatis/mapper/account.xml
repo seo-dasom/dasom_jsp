@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="accountMapper">
+  <resultMap id="accountMap" type="account">
+    <id property="id" column="id" />
+    <result property="nickname" column="nick" />
+    <result property="username" column="name" />
+  </resultMap>
+  
+  <select id="selectAll" resultType="account">
+  	SELECT * FROM account
+  </select>
+
+  <select id="selectAccount" parameterType="account" resultType="account">
+    SELECT * FROM account WHERE id = #{id}
+  </select>
+  
+  <select id="selectAccountMap" parameterType="account" resultMap="accountMap">
+    SELECT nickname AS nick, username AS name FROM account WHERE id = #{id}
+  </select>
+  
+  <select id="checkNickname" parameterType="string" resultType="_int">
+    SELECT count(*) FROM account WHERE nickname = #{nickname}
+  </select>
+  
+  <select id="checkEmail" parameterType="string" resultType="_int">
+    SELECT count(*) FROM account WHERE email = #{email}
+  </select>
+  
+  <select id="checkLogin" parameterType="account" resultType="account">
+    SELECT * FROM account
+     WHERE email = #{email}
+     AND password = #{password}
+     AND expiredate IS NULL
+  </select>
+  
+  <insert id="insertAccount" parameterType="account">
+    INSERT INTO account(id, nickname, username, password, email, gender, age)
+         VALUES(account_seq.NEXTVAL, #{nickname}, #{username}, #{password}
+               , #{email}, #{gender}, #{age})
+  </insert>
+  
+  <update id="loginDate">
+    UPDATE account
+       SET logindate = SYSDATE
+     WHERE id = #{id}
+  </update>
+  
+  <update id="updateAccount" parameterType="account">
+  	UPDATE account
+  	   SET nickname = #{nickname}
+  	     , gender = #{gender}
+  	     , age = #{age}
+  	 WHERE id = #{id}
+  </update>
+  
+  <update id="expireAccount">
+  	UPDATE account
+  	   SET expiredate = SYSDATE
+  	 WHERE id = #{id}
+  </update>
+</mapper>
