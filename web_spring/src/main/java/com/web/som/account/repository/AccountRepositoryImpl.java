@@ -17,8 +17,6 @@ import com.web.som.account.dto.AccountDTO;
  */
 @Repository		// bean에 등록
 public class AccountRepositoryImpl implements AccountRepository {
-
-	
 	
 	@Autowired
 	SqlSession sqlSession;
@@ -33,6 +31,41 @@ public class AccountRepositoryImpl implements AccountRepository {
 		return sqlSession.selectList("accountMapper.selectAll");
 	}
 	
+	@Override
+	public boolean insert(AccountDTO dto) throws Exception {
+		boolean result = false;
+		int rs = sqlSession.insert("accountMapper.insertAccount", dto);
+		if(rs == 1) {
+			result = true;
+		}
+		return result;
+	}
+	
+	@Override
+	public int usedNickname(String nickname) throws Exception {
+		return sqlSession.selectOne("accountMapper.checkNickname", nickname);
+	}
+
+	@Override
+	public int usedEmail(String email) throws Exception {
+		return sqlSession.selectOne("accountMapper.checkEmail", email);
+	}
+	
+	@Override
+	public AccountDTO checkUser(AccountDTO dto) throws Exception {
+		return sqlSession.selectOne("accountMapper.checkLogin", dto);
+	}
+	
+	@Override
+	public boolean update(AccountDTO dto) throws Exception {
+		return true;
+	}
+	
+	@Override
+	public boolean delete(AccountDTO dto) throws Exception {
+		return true;
+	}
+
 	/* JdbcTemplate을 사용 했을 때 적용한 것
 		
 	@Autowired

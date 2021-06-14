@@ -18,6 +18,56 @@ public class AccountServiceImpl implements AccountService {
 	AccountRepositoryImpl dao;
 	
 	@Override
+	public boolean join(AccountDTO dto) throws Exception {
+		return dao.insert(dto);
+	}
+	
+	@Override
+	public boolean checkNickname(String nickname) throws Exception {
+		// 사용중인 닉네임을 찾는 기능
+		// 사용중이면 true, 사용하지 않으면 false 반환
+		boolean result = true;
+		int rs = dao.usedNickname(nickname);
+		if(rs == 0) {
+			result = false;
+		}
+		return result;
+	}
+	
+	@Override
+	public boolean checkEmail(String email) throws Exception {
+		// 사용중인 이메일을 찾는 기능
+		// 사용중이면 true, 사용하지 않으면 false 반환
+		boolean result = true;
+		int rs = dao.usedEmail(email);
+		if(rs == 0) {
+			result = false;
+		}
+		return result;
+	}
+
+	@Override
+	public void login(AccountDTO dto) throws Exception {
+		AccountDTO data = dao.checkUser(dto);
+		if(data != null) {
+			// 로그인 성공
+			dto.setId(data.getId());
+			dto.setUsername(data.getUsername());
+			dto.setNickname(data.getNickname());
+			dto.setEmail(data.getEmail());
+			dto.setPassword("");
+			dto.setGender(data.getGender());
+			dto.setAge(data.getAge());
+			dto.setLogindate(data.getLogindate());
+			dto.setJoindate(data.getJoindate());
+		} else {
+			// 로그인 실패
+			dto.setId(-1);
+			dto.setPassword("");
+		}
+	}
+	
+	@Override
 	public AccountDTO accountInfoDetail(AccountDTO dto) throws Exception {
 		// 비지니스 로직
 		return dao.select(dto);
