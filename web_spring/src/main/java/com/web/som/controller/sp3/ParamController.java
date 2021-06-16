@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -52,4 +53,12 @@ public class ParamController {
 		m.addAttribute("obj", p);
 		return "sp3/post2";
 	}
+	
+	@RequestMapping(value = "/post3", method = RequestMethod.GET)
+	public String get3(Model m, @RequestParam int id) {
+		System.out.println("@RequestParam int id -> " + id);
+		m.addAttribute("obj", id);
+		return "sp3/get3";
+	}
+	
 }

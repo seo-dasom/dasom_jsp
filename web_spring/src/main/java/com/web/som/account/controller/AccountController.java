@@ -20,7 +20,7 @@ import com.web.som.account.service.AccountService;
 public class AccountController {
 	
 	@Autowired
-	AccountService account;
+	private AccountService account;
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {
