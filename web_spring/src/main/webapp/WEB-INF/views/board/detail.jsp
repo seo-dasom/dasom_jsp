@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,8 +174,12 @@
 		<h3>${requestScope.item.getTitle() }</h3>
 	</div>
 	<div>
-		<small>작성일 : ${requestScope.item.getCdate() }</small><br>
-		<small>수정일 : ${requestScope.item.getUdate() }</small><br>
+		<fmt:formatDate var="cdate" value="${item.getCdate() }"
+		                pattern="yyyy년 MM월 dd일 a kk시 mm분 ss초"/>
+		<small>작성일 : ${cdate }</small><br>
+		<fmt:formatDate var="udate" value="${item.getUdate() }"
+		                pattern="yyyy년 MM월 dd일 a kk시 mm분 ss초"/>
+		<small>수정일 : ${udate }</small><br>
 		<small>조회수 : ${requestScope.item.getVcnt() }</small><br>
 		<a style="cursor: pointer;" onclick="sendRecommend('g');">
 			<small>추천 : <span id="good">${requestScope.item.getGcnt() }</span></small></a><br>

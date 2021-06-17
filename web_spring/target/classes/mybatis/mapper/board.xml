@@ -4,6 +4,57 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="boardMapper">
+  <update id="boardUpdate" parameterType="board">
+    UPDATE board
+       SET title = #{title}
+         , btype = #{btype}
+         , contents = #{contents}
+         , nodel = #{nodel}
+         , udate = SYSDATE
+     WHERE id = #{id}
+  </update>
+  
+  <update id="boardCLOB" parameterType="board">
+    UPDATE board SET contents = #{contents} WHERE id = #{id}
+  </update>
+
+  <insert id="boardInsert" parameterType="board">
+    INSERT INTO board(id, btype, aid, title, contents, nodel)
+         VALUES(#{id}, #{btype}, #{aid}, #{title}, EMPTY_CLOB(), #{nodel})
+  </insert>
+  
+  <select id="seq" resultType="_int">
+    SELECT board_seq.NEXTVAL AS seq FROM dual
+  </select>
+  
+  <select id="boardtypes" resultType="boardtype">
+    SELECT * FROM board_type
+  </select>
+  
+  <select id="row" parameterType="board" resultType="board">
+    SELECT a.id,
+		   a.btype,
+		   b.name AS bname,
+		   a.aid,
+		   c.nickname AS aname,
+		   a.title,
+		   a.contents,
+		   a.cdate,
+		   a.udate,
+		   a.vcnt,
+		   a.gcnt,
+		   a.bcnt,
+		   a.nodel
+	  FROM board a
+	  JOIN board_type b
+	    ON a.btype = b.id
+	  JOIN account c
+	    ON a.aid = c.id
+	 WHERE a.deleted = 'n'
+	   AND a.id = #{id}
+  ORDER BY a.id DESC
+  </select>
+  
   <select id="all" resultType="board">
 	SELECT a.id,
 		   a.btype,
@@ -18,7 +69,8 @@
 	    ON a.btype = b.id
 	  JOIN account c
 	    ON a.aid = c.id
-  ORDER BY a.id
+	 WHERE a.deleted = 'n'
+  ORDER BY a.id DESC
   </select>
   
   <select id="goodcount" resultType="board">

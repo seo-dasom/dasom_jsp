@@ -15,7 +15,7 @@ public class BoardDTO {
     private int bcnt;
     private Date cdate;
     private Date udate;
-    private String nodel;
+    private String nodel = "n";
     private String deleted;
 
     public BoardDTO() {}
@@ -121,7 +121,13 @@ public class BoardDTO {
 	}
 
 	public void setNodel(String nodel) {
-		this.nodel = nodel;
+		if(nodel == null) {
+			this.nodel = "n";
+		} else if(nodel.equals("on") || nodel.equals("y")) {
+			this.nodel = "y";
+		} else {
+			this.nodel = "n";
+		}
 	}
 
 	public String getDeleted() {

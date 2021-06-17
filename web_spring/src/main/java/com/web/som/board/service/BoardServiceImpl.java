@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.som.board.dto.BoardDTO;
+import com.web.som.board.dto.BoardTypeDTO;
 import com.web.som.board.repository.BoardRepository;
 
 @Service
@@ -16,12 +17,14 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean add(BoardDTO dto) throws Exception {
-		return false;
+		boolean res = dao.insert(dto);
+		return res;
 	}
 
 	@Override
 	public boolean update(BoardDTO dto) throws Exception {
-		return false;
+		boolean res = dao.update(dto);
+		return res;
 	}
 
 	@Override
@@ -31,19 +34,19 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardDTO> findAll() throws Exception {
-//		BoardDTO dto = new BoardDTO();
-//		dto.setId(-1);		// 조회 조건으로 사용 안함
-//		dto.setBtype(-1);	// 조회 조건으로 사용 안함
-//		dto.setAid(-1);		// 조회 조건으로 사용 안함
-//		dto.setTitle("");	// 조회 조건으로 사용 안함 또는 ""임.
-		
 		List<BoardDTO> data = dao.selectAll();
 		return data;
 	}
 
+	/**
+	 * @param id: 게시물 식별 번호
+	 * @return BoardDTO: 게시물 식별 번호로 조회된 정보를 반환
+	 */
 	@Override
 	public BoardDTO findId(int id) throws Exception {
-		return null;
+		BoardDTO data = new BoardDTO();
+		data.setId(id);
+		return dao.select(data);
 	}
 
 	@Override
@@ -59,6 +62,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardDTO> findAuthor(int aid) throws Exception {
 		return null;
+	}
+
+	@Override
+	public List<BoardTypeDTO> getBoardTypes() throws Exception {
+		List<BoardTypeDTO> data = dao.selectBoardTypes();
+		return data;
 	}
 
 }
