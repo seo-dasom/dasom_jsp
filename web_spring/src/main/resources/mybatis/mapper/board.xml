@@ -23,6 +23,33 @@
          VALUES(#{id}, #{btype}, #{aid}, #{title}, EMPTY_CLOB(), #{nodel})
   </insert>
   
+  <select id="boardSearch" parameterType="boardsearch" resultType="board">
+    SELECT a.id
+         , a.btype
+         , b.name AS bname
+         , a.aid
+         , c.nickname AS aname
+         , a.title
+         , a.cdate
+         , a.vcnt
+      FROM board a
+      JOIN board_type b
+        ON a.btype = b.id
+      JOIN account c
+        ON a.aid = c.id
+     WHERE a.deleted = 'n'
+     <if test="boardtype != 0">
+       AND a.btype = #{boardtype}
+     </if>
+     <if test='searchtype == "a" and search != null'>
+       AND c.nickname = #{search}
+     </if>
+     <if test='searchtype == "t" and search != null'>
+       AND a.title like '%' || #{search} || '%'
+     </if>
+     ORDER BY a.id DESC
+  </select>
+  
   <select id="seq" resultType="_int">
     SELECT board_seq.NEXTVAL AS seq FROM dual
   </select>

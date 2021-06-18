@@ -7,5 +7,6 @@
     <typeAlias type="com.web.som.account.dto.AccountDTO" alias="account" />
     <typeAlias type="com.web.som.board.dto.BoardDTO" alias="board" />
     <typeAlias type="com.web.som.board.dto.BoardTypeDTO" alias="boardtype" />
+    <typeAlias type="com.web.som.board.dto.BoardSearchDTO" alias="boardsearch" />
   </typeAliases>
 </configuration>

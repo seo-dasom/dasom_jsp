@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.som.board.dto.BoardDTO;
+import com.web.som.board.dto.BoardSearchDTO;
 import com.web.som.board.dto.BoardTypeDTO;
 
 @Repository
@@ -17,13 +18,14 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 	@Override
 	public BoardDTO select(BoardDTO dto) throws Exception {
-		
-		return sqlSession.selectOne("boardMapper.row", dto);
+		BoardDTO data = sqlSession.selectOne("boardMapper.row", dto);
+		return data;
 	}
 
 	@Override
 	public List<BoardDTO> selectAll() throws Exception {
-		return sqlSession.selectList("boardMapper.all");
+		List<BoardDTO> data = sqlSession.selectList("boardMapper.all");
+		return data;
 	}
 	
 	@Override
@@ -68,6 +70,12 @@ public class BoardRepositoryImpl implements BoardRepository {
 	@Override
 	public List<BoardTypeDTO> selectBoardTypes() throws Exception {
 		List<BoardTypeDTO> data = sqlSession.selectList("boardMapper.boardtypes");
+		return data;
+	}
+
+	@Override
+	public List<BoardDTO> selectList(BoardSearchDTO search) throws Exception {
+		List<BoardDTO> data = sqlSession.selectList("boardMapper.boardSearch", search);
 		return data;
 	}
 

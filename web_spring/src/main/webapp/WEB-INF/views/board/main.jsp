@@ -13,7 +13,7 @@
 			<c:url var="all" value="/board" />
 			<li><a href="${all }">전체</a></li>
 			<c:forEach var="type" items="${requestScope.boardtypes }">
-				<li><a href="?type=${type.id }">${type.name }</a></li>
+				<li><a href="?boardtype=${type.id }">${type.name }</a></li>
 			</c:forEach>
 		</ul>
 	</div>
@@ -21,6 +21,20 @@
 		<div>
 			<c:url var="add" value="/board/add" />
 			<button type="button" onclick="location.href='${add }'">글쓰기</button>
+		</div>
+		<div>
+			<c:url var="search" value="/board" />
+			<form id="search_form" action="${search }" method="get">
+				<c:if test="${not empty param.boardtype}">
+					<input type="hidden" name="boardtype" value="${param.boardtype }">
+				</c:if>
+				<select name="searchtype">
+					<option value="a">작성자</option>
+					<option value="t">제목</option>
+				</select>
+				<input type="text" name="search">
+				<button type="submit">검색</button>
+			</form>
 		</div>
 		<table>
 			<thead>

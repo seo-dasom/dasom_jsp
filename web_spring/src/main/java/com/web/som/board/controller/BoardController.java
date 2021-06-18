@@ -2,6 +2,8 @@ package com.web.som.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.som.board.dto.BoardDTO;
+import com.web.som.board.dto.BoardSearchDTO;
 import com.web.som.board.service.BoardService;
 
 @Controller
@@ -30,14 +33,33 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView main() throws Exception {
+    public ModelAndView main(@ModelAttribute BoardSearchDTO search) throws Exception {
+		// 전체 검색
+		// 제목 검색
+		// 작성자 검색
+		// 게시판 구분 + 제목 검색
+		// 게시판 구분 + 작성자 검색
+		//@RequestParam, HttpServletRequest, @ModelAttribute
+		
+		System.out.println("Boardtype : " + search.getBoardtype());
+		System.out.println("Searchtype : " + search.getSearchtype());
+		System.out.println("Search : " + search.getSearch());
+
         ModelAndView mv = new ModelAndView();
         
-        List<BoardDTO> boardlist = board.findAll();
+        List<BoardDTO> boardlist = null;
+        
+        if(search.getBoardtype() == 0
+           && search.getSearchtype() == null) {
+        	boardlist = board.findAll();
+        } else {
+        	boardlist = board.findList(search);
+        }
         
         mv.setViewName("board/main");
         mv.addObject("boardlist", boardlist);
         mv.addObject("boardtypes", board.getBoardTypes());
+        
 		return mv;
     }
 	

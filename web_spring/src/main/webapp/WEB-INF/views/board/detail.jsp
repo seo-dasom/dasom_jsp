@@ -175,10 +175,10 @@
 	</div>
 	<div>
 		<fmt:formatDate var="cdate" value="${item.getCdate() }"
-		                pattern="yyyy년 MM월 dd일 a kk시 mm분 ss초"/>
+		                pattern="yyyy년 MM월 dd일 a hh시 mm분 ss초" />
 		<small>작성일 : ${cdate }</small><br>
 		<fmt:formatDate var="udate" value="${item.getUdate() }"
-		                pattern="yyyy년 MM월 dd일 a kk시 mm분 ss초"/>
+		                pattern="yyyy년 MM월 dd일 a hh시 mm분 ss초"/>
 		<small>수정일 : ${udate }</small><br>
 		<small>조회수 : ${requestScope.item.getVcnt() }</small><br>
 		<a style="cursor: pointer;" onclick="sendRecommend('g');">

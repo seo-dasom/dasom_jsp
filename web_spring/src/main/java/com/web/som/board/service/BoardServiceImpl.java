@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.som.board.dto.BoardDTO;
+import com.web.som.board.dto.BoardSearchDTO;
 import com.web.som.board.dto.BoardTypeDTO;
 import com.web.som.board.repository.BoardRepository;
 
@@ -67,6 +68,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardTypeDTO> getBoardTypes() throws Exception {
 		List<BoardTypeDTO> data = dao.selectBoardTypes();
+		return data;
+	}
+
+	@Override
+	public List<BoardDTO> findList(BoardSearchDTO search)
+			throws Exception {
+		List<BoardDTO> data = dao.selectList(search);
 		return data;
 	}
 
