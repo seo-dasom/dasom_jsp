@@ -1,6 +1,7 @@
 package com.web.som.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.web.som.board.dto.BoardDTO;
 import com.web.som.board.dto.BoardSearchDTO;
@@ -17,4 +18,6 @@ public interface BoardService {
     public List<BoardDTO> findAuthor(int aid) throws Exception;
     public List<BoardTypeDTO> getBoardTypes() throws Exception;
     public List<BoardDTO> findList(BoardSearchDTO search) throws Exception;
+    
+    public List<Map<String, String>> uploadfiles(int id) throws Exception;
 }

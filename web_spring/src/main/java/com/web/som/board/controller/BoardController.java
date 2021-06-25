@@ -1,14 +1,18 @@
 package com.web.som.board.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.som.board.dto.BoardDTO;
 import com.web.som.board.dto.BoardSearchDTO;
 import com.web.som.board.service.BoardService;
+import com.web.som.common.FileUpload;
+import com.web.som.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -32,6 +38,8 @@ public class BoardController {
 	@Autowired
     private BoardService board;
 
+	@Autowired
+	private FileUploadService fileservice;
 	/**
 	 * 게시판 메인 화면을 생성하기 위한 메서드
 	 * /board 주소로 요청할 때 기능 동작
@@ -88,62 +96,43 @@ public class BoardController {
     		@RequestParam MultipartFile[] file,
     		HttpServletRequest req) throws Exception {
     	String forward = "board/add";
-    	String origin_name = "";
-    	String change_name = "";
-    	String file_ext = "";
-    	ArrayList<String> permit_ext = new ArrayList<String>();
-    	permit_ext.add("zip");	permit_ext.add("png");
+    	// 게시글 추가
+    	dto.setAid(1);
+    	boolean res = board.add(dto);
     	
-    	if(file.length <= 5) {
-	    	for(MultipartFile f: file) {
-	    		if(!f.isEmpty()) {
-	    			if(f.getSize() <= 10 * 1024 * 1024) {
-	    				// 범용 고유 식별자 128 bit
-	    				UUID uuid = UUID.randomUUID();
-	    				
-	    				origin_name = f.getOriginalFilename();
-	    				// 실제로 저장할 파일명 / 파일 다운로드 받을 때 사용해야 할 주소
-	    				change_name = uuid.toString() + "_" + origin_name;
-	    				file_ext = FilenameUtils.getExtension(f.getOriginalFilename());
-	    				
-	    				System.out.println("원본 파일명 : " + origin_name);
-	    				System.out.println("변경된 파일명 : " + change_name);
-		    			System.out.println("확장자 : " + file_ext);
-		    			System.out.println("파일 크기(바이트) : " + f.getSize());
-	    				
-	    				if(permit_ext.contains(file_ext)) {
-	    					System.out.println("허용되는 확장자 입니다.");
-	    					
-	    					// 파일 저장
-	    					String root_path = req.getServletContext().getRealPath("/");
-	    					File save_path = new File(root_path + "/WEB-INF/resources/file/");
-	    					if(!save_path.exists()) {
-	    						// 파일을 저장하기 위한 경로가 존재하지 않으면 생성
-	    						Files.createDirectories(save_path.toPath());
-	    					}
-	    					f.transferTo(new File(save_path + "/" + origin_name));
-	    				} else {
-	    					System.out.println("해당 확장자는 업로드 할 수 없습니다.");
-	    				}
-		    			
-	    			} else {
-	    				System.out.println("업로드 파일의 크기가 큽니다.");
-	    			}
-	    		}
+    	if(res) {
+    		//파일 업로드
+    		if(file.length > 0) {
+    			String root = req.getServletContext().getRealPath("/");
+    			FileUpload fileupload = new FileUpload(root, "/WEB-INF/resources/file/", "/file/down/");
+    			fileupload.setMaxFileCount(5);
+    			fileupload.setMaxFileSize(10*1024*1024);
+    			fileupload.setFileExtPermit("pdf");
+    			
+    			// 실제 파일 저장
+    			int fcode = fileupload.save(dto.getId(), file);
+    			
+    			// 데이터베이스에 경로 저장
+    			if(fcode > 0) {
+    				for(HashMap data: fileupload.getSaveFiles()) {
+    					fileservice.save(dto.getId(), data);
+    					if(FilenameUtils.getExtension((String)data.get("location")).equals("png")) {
+    						File f = new File(root + (String)data.get("location"));
+    						BufferedImage src_img = ImageIO.read(f);
+    						BufferedImage thumbnail = Scalr.resize(src_img, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 400);
+    						String thumbnail_name = "thumb_" + f.getName();
+    						File tf = new File(root + "/" + thumbnail_name);
+    						ImageIO.write(thumbnail, "png", tf);
+    					}
+    				}
+    			}
 	    	}
+    		
+	    	forward = "redirect:/board/detail?id=" + dto.getId();
     	} else {
-    		System.out.println("파일 업로드 수량 초과");
+    		m.addAttribute("data", dto);
+    		forward = "board/add";
     	}
-    	
-    	// 파일 업로드 관련 기능 완료 후 주석 해제 필요!
-//    	boolean res = board.add(dto);
-//    	
-//    	if(res) {
-//    		forward = "redirect:/board/detail?id=" + dto.getId();
-//    	} else {
-//    		m.addAttribute("data", dto);
-//    		forward = "board/add";
-//    	}
     	
         return forward;
     }

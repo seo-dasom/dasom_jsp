@@ -15,4 +15,5 @@ public interface BoardRepository {
     public boolean update(BoardDTO dto) throws Exception;
     public boolean delete(BoardDTO dto) throws Exception;
     public List<BoardTypeDTO> selectBoardTypes() throws Exception;
+    public List<Map<String, String>> uploadfiles(int id) throws Exception;
 }

@@ -7,8 +7,15 @@
 <meta charset="UTF-8">
 <title>게시글 추가</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<c:url var="se2_editor" value="/resources" />
+<script src="${se2_editor }/se2/js/service/HuskyEZCreator.js" type="text/javascript"></script>
 </head>
 <script type="text/javascript">
+	function sendServer(form_name) {
+		oEditors.getById["id_contents"].exec("UPDATE_CONTENTS_FIELD", []);
+		document.getElementById(form_name).submit();
+	}
+	
 	function fileCheck() {
 		alert("업로드 파일 수 : " + $("#id_file1").get(0).files.length);
 		alert("업로드 파일 이름 : " + $("#id_file1").get(0).files[0].name);
@@ -30,7 +37,7 @@
 </script>
 <body>
 	<c:url var="add" value="/board/add" />
-	<form action="${add }"	method="post" enctype="multipart/form-data">
+	<form id="add_form" action="${add }" method="post" enctype="multipart/form-data">
 		<div>
 			<label for="id_title">제목</label>
 			<input id="id_title" type="text" name="title" required>
@@ -68,9 +75,18 @@
 			<button type="button" onclick="fileCheck();">파일검사</button>
 		</div>
 		<div>
-			<button type="submit">저장</button>
+			<button type="button" onclick="sendServer('add_form');">저장</button>
 			<button type="button" onclick="history.back();">취소</button>
 		</div>
 	</form>
 </body>
+<script type="text/javascript">
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors,
+	elPlaceHolder: "id_contents",
+	sSkinURI: "${se2_editor }/se2/SmartEditor2Skin.html",
+	fCreator: "createSEditor2"
+});
+</script>
 </html>

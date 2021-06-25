@@ -1,6 +1,7 @@
 package com.web.som.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,11 @@ public class BoardServiceImpl implements BoardService {
 			throws Exception {
 		List<BoardDTO> data = dao.selectList(search);
 		return data;
+	}
+
+	@Override
+	public List<Map<String, String>> uploadfiles(int id) throws Exception {
+		return dao.uploadfiles(id);
 	}
 
 }

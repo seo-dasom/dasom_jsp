@@ -1,6 +1,7 @@
 package com.web.som.board.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,11 @@ public class BoardRepositoryImpl implements BoardRepository {
 	public List<BoardDTO> selectList(BoardSearchDTO search) throws Exception {
 		List<BoardDTO> data = sqlSession.selectList("boardMapper.boardSearch", search);
 		return data;
+	}
+	
+	@Override
+	public List<Map<String, String>> uploadfiles(int id) throws Exception {
+		return sqlSession.selectList("boardMapper.uploadfiles", id);
 	}
 
 }

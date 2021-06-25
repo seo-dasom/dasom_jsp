@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 수정</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<c:url var="ck5_editor" value="/resources" />
+<script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
 </head>
 <body>
 	<c:url var="update" value="/board/update" />

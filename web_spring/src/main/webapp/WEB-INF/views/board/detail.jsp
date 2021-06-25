@@ -190,6 +190,11 @@
 		<p>${fn:replace(requestScope.item.getContents(), newline, "<br>") }</p>
 	</div>
 	<div>
+		<c:forEach var="file" items="${uploadfiles }" varStatus="status">
+			다운로드 : <a href="${file.URL }">${file.NAME }</a><br>
+		</c:forEach>
+	</div>
+	<div>
 		<c:url var="update" value="/board/update?id=${item.getId() }" />
 		<c:url var="board" value="/board" />
 		<button type="button" onclick="location.href='${update }'">수정</button>
